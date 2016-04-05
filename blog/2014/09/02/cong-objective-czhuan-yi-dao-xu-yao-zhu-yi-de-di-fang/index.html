@@ -1,0 +1,710 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>从Objective-C转移到Swift需要注意的地方 - Ron's Blog</title>
+  <meta name="author" content="Ron">
+
+  
+  <meta name="description" content="我想通过这文章分享一下我从Objective-C转移到Swift过程中的一些想法。我会给你一些提示并讨论相关的陷阱，尽可能去比较两种语言的方法有何不同。废话不多说，马上开始！ xxx.swift VS xxx.h&amp;xxx.m 第一个要注意的大变化是，Swift不采用interface.h/ &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://BOOLRon.github.io/blog/2014/09/02/cong-objective-czhuan-yi-dao-xu-yao-zhu-yi-de-di-fang">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Ron's Blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Ron's Blog</a></h1>
+  
+    <h2>攻城狮成长记</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:BOOLRon.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">从Objective-C转移到Swift需要注意的地方</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-09-02T20:41:46+08:00" pubdate data-updated="true">Sep 2<sup>nd</sup>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>我想通过这文章分享一下我从Objective-C转移到Swift过程中的一些想法。我会给你一些提示并讨论相关的陷阱，尽可能去比较两种语言的方法有何不同。废话不多说，马上开始！</p>
+
+<h3>xxx.swift VS xxx.h&amp;xxx.m</h3>
+
+<p>第一个要注意的大变化是，Swift不采用interface.h/implementation.m的结构。其实我是非常支持把需要共享的信息放头文件的，这样很安全。而Swift，不再分开头文件与实现文件了，只需要实现我们的class。</p>
+
+<p>自从Xcode6 beta4开始，Swift加入了三个访问权限控制修饰词：</p>
+
+<ul>
+<li>private 只能被相同源文件下被访问</li>
+<li>internal 只能被当前target下的文件访问</li>
+<li>public 可以被属于当前target的module下的所有文件访问</li>
+</ul>
+
+
+<p>三个中internal是默认的，另外对属性加修饰词可以设置只对set方法成效，例如：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="sr">//</span> <span class="err">这样对于其他文件是只读不可写了</span>
+</span><span class='line'><span class="kp">private</span><span class="p">(</span><span class="n">set</span><span class="p">)</span> <span class="n">var</span> <span class="ss">UUID</span><span class="p">:</span> <span class="no">NSUUID</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
+
+<p>而当你需要重载声明了public修饰词的方法时，你也必须要加public的:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="kp">public</span> <span class="n">override</span> <span class="n">func</span> <span class="n">isEqual</span><span class="p">(</span><span class="ss">object</span><span class="p">:</span> <span class="no">AnyObject</span><span class="sc">?)</span> <span class="o">-&gt;</span> <span class="no">Bool</span><span class="p">{</span>
+</span><span class='line'>  <span class="k">if</span> <span class="n">let</span> <span class="n">item</span> <span class="o">=</span> <span class="n">object</span> <span class="n">as?</span> <span class="no">ListItem</span> <span class="p">{</span>
+</span><span class='line'>      <span class="k">return</span> <span class="nb">self</span><span class="o">.</span><span class="n">UUID</span> <span class="o">==</span> <span class="n">item</span><span class="o">.</span><span class="n">UUID</span>
+</span><span class='line'>  <span class="p">}</span>    
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>常量与变量</h3>
+
+<p>在写Objective-C时，我知道有些数据不应该被改变也是比较少用<strong>const</strong>的（请不要耻笑我）。而在Swift，苹果建议开发者更多去思考，能用常量(<strong>let</strong>)，就少用变量(<strong>var</strong>)。这样你只需要专注于如何使你定义的变量发挥作用。</p>
+
+<h3>只写需要的代码</h3>
+
+<p>举个栗子：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">let</span> <span class="ss">wsURL</span><span class="p">:</span><span class="no">NSURL</span> <span class="o">=</span> <span class="no">NSURL</span><span class="p">(</span><span class="ss">string</span><span class="p">:</span><span class="s2">&quot;http://wsurl.com&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="o">&lt;!----&gt;</span>
+</span><span class='line'><span class="n">let</span> <span class="n">wsURL</span> <span class="o">=</span> <span class="no">NSURL</span><span class="p">(</span><span class="ss">string</span><span class="p">:</span><span class="s2">&quot;http://wsurl.com&quot;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
+
+<p>经过两周训练写Swift，我强迫自己去掉每行代码的分号。最后我感觉整个人都舒服了，然后我经常写Objective-C漏掉了分号，呵呵。</p>
+
+<p><strong>Type inference</strong>是指通过赋值时的声明来推断出实例的类型，这种方便的写法使得习惯了冗长派语言（如Objective-C）的我有点措手不及。</p>
+
+<p>另一种情况是在if里买不一定需要括号：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">if</span> <span class="p">(</span><span class="n">a</span> <span class="o">&gt;</span> <span class="n">b</span><span class="p">)</span> <span class="p">{}</span>
+</span><span class='line'><span class="o">&lt;!----&gt;</span>
+</span><span class='line'><span class="k">if</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="n">b</span> <span class="p">{}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
+
+<p>以上是一样的，另外如果你要在if里面赋值是不能加括号的：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">if</span> <span class="p">(</span><span class="n">let</span> <span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="p">){}</span> <span class="sr">//</span><span class="no">Error</span><span class="o">!</span>
+</span><span class='line'><span class="k">if</span> <span class="n">let</span> <span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="p">{}</span>  <span class="sr">//</span><span class="no">OK</span><span class="o">!</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Optionals</h3>
+
+<p>很多时候函数返回的会是<strong>值</strong>或者<strong>空</strong>，而你会用什么方案来返回这个<strong>空</strong>呢？我会使用<strong>NSNotFound</strong>,<strong>-1</strong>,<strong>0</strong>或<strong>nil</strong>。得益于Optionals，现在<strong>空</strong>有了官方的完整定义，我们只需在数据类型后加问号就行了。</p>
+
+<p>例如：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Car</span><span class="p">{</span>
+</span><span class='line'>    <span class="n">func</span> <span class="n">accelerate</span><span class="p">(){</span>
+</span><span class='line'>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;accelerate&quot;</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>  
+</span><span class='line'><span class="k">class</span> <span class="nc">Person</span><span class="p">{</span>
+</span><span class='line'>    <span class="n">let</span> <span class="nb">name</span><span class="ss">:String</span>
+</span><span class='line'>    <span class="n">let</span> <span class="ss">car</span><span class="p">:</span><span class="no">Car</span><span class="p">?</span> <span class="sr">//</span> <span class="no">Optional</span> <span class="n">value</span>
+</span><span class='line'>    <span class="n">init</span><span class="p">(</span><span class="nb">name</span><span class="ss">:String</span><span class="p">){</span>
+</span><span class='line'>        <span class="nb">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="nb">name</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="sr">//</span> <span class="no">ACCESSING</span> <span class="no">THE</span> <span class="no">OPTIONAL</span> <span class="no">VALUE</span> <span class="o">***********</span>
+</span><span class='line'><span class="n">var</span> <span class="no">Mark</span> <span class="o">=</span> <span class="no">Person</span><span class="p">(</span><span class="nb">name</span><span class="ss">:&quot;mark&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="sr">//</span> <span class="n">use</span> <span class="n">optional</span> <span class="nb">binding</span>
+</span><span class='line'><span class="k">if</span> <span class="n">let</span> <span class="n">car</span> <span class="o">=</span> <span class="no">Mark</span><span class="o">.</span><span class="n">car</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">car</span><span class="o">.</span><span class="n">accelerate</span><span class="p">()</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="sr">//</span> <span class="n">unwrap</span> <span class="n">the</span> <span class="n">value</span>
+</span><span class='line'><span class="no">Mark</span><span class="o">.</span><span class="n">car?</span><span class="o">.</span><span class="n">accelerate</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在这个例子中，Person有Car被定义成一个Optional。这意味着属性car可以为空，然后我们可以通过Optional binding(if let car =)或者unwrap(car?)来访问到里面的值。
+如果我们定义某属性不为Optional，那么我们必须要设一个值给它，否则编译器就会不高兴了。我们需要决定好class的属性怎样与其它class相互调用，Optional完全改变了我们构思class的方式。</p>
+
+<h3>Optionals Unwrapping</h3>
+
+<p>当你发现Optional很难用时，那是因为你对它还不够了解&hellip;</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">Mark</span><span class="o">.</span><span class="n">car?</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>建议你把Optional想象成一个封起来的盒子，当你不肯定里面有没有值时，可以在Optional后面加<strong>?</strong>就代表解封，你即可看到里面的值或者是一个空盒子。而你敢肯定里面绝对有值时，可以在后面加<strong>!</strong>就可以直接获取到值了，但这有个风险，程序运行发现跟你断言的不一样就会马上闪退。</p>
+
+<h3>Delegate模式</h3>
+
+<p>写了多年的Objective-C，我们都已习惯了这种模式，下面用Swift实现一个简单的delegate:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="vi">@objc</span> <span class="n">protocol</span> <span class="no">DataReaderDelegate</span><span class="p">{</span>
+</span><span class='line'>    <span class="vi">@optional</span> <span class="n">func</span> <span class="no">DataWillRead</span><span class="p">()</span>
+</span><span class='line'>    <span class="n">func</span> <span class="no">DataDidRead</span><span class="p">()</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="k">class</span> <span class="nc">DataReader</span><span class="p">:</span> <span class="no">NSObject</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">var</span> <span class="ss">delegate</span><span class="p">:</span><span class="no">DataReaderDelegate</span><span class="p">?</span>
+</span><span class='line'>    <span class="n">var</span> <span class="ss">data</span><span class="p">:</span><span class="no">NSData</span><span class="p">?</span>
+</span><span class='line'>    <span class="n">func</span> <span class="n">buildData</span><span class="p">(){</span>
+</span><span class='line'>        <span class="n">delegate?</span><span class="o">.</span><span class="n">DataWillRead?</span><span class="p">()</span> <span class="sr">//</span> <span class="no">Optional</span> <span class="nb">method</span> <span class="n">check</span>
+</span><span class='line'>        <span class="n">data</span> <span class="o">=</span> <span class="n">_createData</span><span class="p">()</span>
+</span><span class='line'>        <span class="n">delegate?</span><span class="o">.</span><span class="n">DataDidRead</span><span class="p">()</span>       <span class="sr">//</span> <span class="no">Required</span> <span class="nb">method</span> <span class="n">check</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>
+以往我们需要用<strong>respondToSelector</strong>来判断对象是否响应这个方法(真心觉得太烦了)，现在有了Optional就可以简化成：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">delegate?</span><span class="o">.</span><span class="n">DataWillRead?</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>然后就是在另外的class上实现delegate了：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">ViewController</span><span class="p">:</span> <span class="no">UIViewController</span><span class="p">,</span> <span class="no">DataReaderDelegate</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">override</span> <span class="n">func</span> <span class="n">viewDidLoad</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">super</span><span class="o">.</span><span class="n">viewDidLoad</span><span class="p">()</span>
+</span><span class='line'>        <span class="n">let</span> <span class="n">reader</span> <span class="o">=</span> <span class="no">DataReader</span><span class="p">()</span>
+</span><span class='line'>        <span class="n">reader</span><span class="o">.</span><span class="n">delegate</span> <span class="o">=</span> <span class="nb">self</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="n">func</span> <span class="no">DataWillRead</span><span class="p">()</span> <span class="p">{</span><span class="o">.</span><span class="n">.</span><span class="o">.</span><span class="p">}</span>
+</span><span class='line'>    <span class="n">func</span> <span class="no">DataDidRead</span><span class="p">()</span> <span class="p">{</span><span class="o">.</span><span class="n">.</span><span class="o">.</span><span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Target-Action模式</h3>
+
+<p>另一种常用模式是target-action模式，你会发现写法跟Objective-C差别不大：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">ViewController</span><span class="p">:</span> <span class="no">UIViewController</span> <span class="p">{</span>
+</span><span class='line'>    <span class="vi">@IBOutlet</span> <span class="n">var</span> <span class="ss">button</span><span class="p">:</span><span class="no">UIButton</span>
+</span><span class='line'>    <span class="n">override</span> <span class="n">func</span> <span class="n">viewDidLoad</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">super</span><span class="o">.</span><span class="n">viewDidLoad</span><span class="p">()</span>
+</span><span class='line'>      <span class="n">button</span><span class="o">.</span><span class="n">addTarget</span><span class="p">(</span><span class="nb">self</span><span class="p">,</span> <span class="ss">action</span><span class="p">:</span> <span class="s2">&quot;buttonPressed:&quot;</span><span class="p">,</span> <span class="ss">forControlEvents</span><span class="p">:</span> <span class="no">UIControlEvents</span><span class="o">.</span><span class="n">TouchUpInside</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="n">func</span> <span class="n">buttonPressed</span><span class="p">(</span><span class="ss">sender</span><span class="p">:</span><span class="no">UIButton</span><span class="p">){</span><span class="o">.</span><span class="n">.</span><span class="o">.</span><span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>最大不同在于selector的定义。我们可以直接写用String写成:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">Selector</span><span class="p">(</span><span class="s2">&quot;buttonPressed:&quot;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>单例模式</h3>
+
+<p>无论你喜不喜欢，单例模式仍然是最常用开发设计模式之一。除了结合GDC和dispatch_once来实现之外，我们还可以使用线程安全的<strong>let</strong>实现。</p>
+
+<pre><code>class DataReader: NSObject {
+    class var sharedReader:DataReader {
+        struct Static{
+            static let _instance = DataReader()
+        }
+        return Static._instance
+    }
+...
+}
+</code></pre>
+
+<p>分析一下</p>
+
+<p>1.我们ShareReader可看成包装起来的静态属性；
+2.而真正的静态属性我用struct来封起来不允许别的class修改；
+3._instance是一个常量，它不能被修改成别的值。</p>
+
+<p>使用：</p>
+
+<pre><code>DataReader.sharedReader
+</code></pre>
+
+<p>自从Xcode6 beta4加入了访问修饰词，我们现在可以简单的写成：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="kp">private</span> <span class="n">let</span> <span class="n">_instance</span> <span class="o">=</span> <span class="no">DataReader</span><span class="p">()</span>
+</span><span class='line'><span class="k">class</span> <span class="nc">DataReader</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">class</span> <span class="n">var</span> <span class="ss">sharedReader</span><span class="p">:</span><span class="no">DataReader</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">_instance</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
+
+<h3>结构体与枚举</h3>
+
+<p>Swift的结构体与枚举有很多强大特性你是在别的语言找不到的。</p>
+
+<p>它们支持写方法：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">struct</span> <span class="no">User</span><span class="p">{</span>
+</span><span class='line'>    <span class="sr">//</span> <span class="no">Struct</span> <span class="n">properties</span>
+</span><span class='line'>    <span class="n">let</span> <span class="nb">name</span><span class="ss">:String</span>
+</span><span class='line'>    <span class="n">let</span> <span class="ss">ID</span><span class="p">:</span><span class="no">Int</span>
+</span><span class='line'>    <span class="sr">//</span> <span class="no">Method</span><span class="o">!!!</span>
+</span><span class='line'>    <span class="n">func</span> <span class="n">sayHello</span><span class="p">(){</span>
+</span><span class='line'>        <span class="n">println</span><span class="p">(</span><span class="s2">&quot;I&#39;m &quot;</span> <span class="o">+</span> <span class="nb">self</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s2">&quot; my ID is: \(self.ID)&quot;</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="n">let</span> <span class="n">pamela</span> <span class="o">=</span> <span class="no">User</span><span class="p">(</span><span class="nb">name</span><span class="p">:</span> <span class="s2">&quot;Pamela&quot;</span><span class="p">,</span> <span class="ss">ID</span><span class="p">:</span> <span class="mi">123456</span><span class="p">)</span>
+</span><span class='line'><span class="n">pamela</span><span class="o">.</span><span class="n">sayHello</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>
+可以见到Swift对结构体有默认的initializer。而枚举的语法有很大不同是用了<strong>case</strong>:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">enum</span> <span class="no">Fruit</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">case</span> <span class="n">orange</span>
+</span><span class='line'>  <span class="k">case</span> <span class="n">apple</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>不再限制与整数：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">enum</span> <span class="ss">Fruit</span><span class="p">:</span><span class="nb">String</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">case</span> <span class="o">.</span><span class="n">orange</span> <span class="o">=</span> <span class="s2">&quot;Orange&quot;</span>
+</span><span class='line'>  <span class="k">case</span> <span class="o">.</span><span class="n">apple</span> <span class="o">=</span> <span class="s2">&quot;Apple&quot;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>
+甚至可以给它定义更多行为：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">enum</span> <span class="no">Fruit</span><span class="p">{</span>
+</span><span class='line'>    <span class="sr">//</span> <span class="no">Available</span> <span class="no">Fruits</span>
+</span><span class='line'>    <span class="k">case</span> <span class="n">orange</span>
+</span><span class='line'>    <span class="k">case</span> <span class="n">apple</span>
+</span><span class='line'>    <span class="sr">//</span> <span class="no">Nested</span> <span class="n">type</span>
+</span><span class='line'>    <span class="n">struct</span> <span class="no">Vitamin</span><span class="p">{</span>
+</span><span class='line'>        <span class="n">var</span> <span class="nb">name</span><span class="ss">:String</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="sr">//</span> <span class="no">Compound</span> <span class="n">property</span>
+</span><span class='line'>    <span class="n">var</span> <span class="ss">mainVitamin</span><span class="p">:</span><span class="no">Vitamin</span> <span class="p">{</span>
+</span><span class='line'>      <span class="n">switch</span> <span class="nb">self</span><span class="p">{</span>
+</span><span class='line'>          <span class="k">case</span> <span class="o">.</span><span class="n">orange</span><span class="p">:</span>
+</span><span class='line'>          <span class="k">return</span> <span class="no">Vitamin</span><span class="p">(</span><span class="nb">name</span><span class="p">:</span> <span class="s2">&quot;C&quot;</span><span class="p">)</span>
+</span><span class='line'>      <span class="k">case</span> <span class="o">.</span><span class="n">apple</span><span class="p">:</span>
+</span><span class='line'>          <span class="k">return</span> <span class="no">Vitamin</span><span class="p">(</span><span class="nb">name</span><span class="p">:</span> <span class="s2">&quot;B&quot;</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="n">let</span> <span class="no">Apple</span> <span class="o">=</span> <span class="no">Fruit</span><span class="o">.</span><span class="n">apple</span>
+</span><span class='line'><span class="n">var</span> <span class="no">Vitamin</span> <span class="o">=</span> <span class="no">Apple</span><span class="o">.</span><span class="n">mainVitamin</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这段代码我们加了一个内嵌类型(Vitamin)和一个compound property(mainVitamin)，这样不同的枚举值出来的mainVitamin就不一样了，这功能真赞！</p>
+
+<h3>Blocks VS Closures</h3>
+
+<p>我非常喜欢blocks，一些简单的delegate我都爱用blocks来替代，它灵活、快速、安全。而在Swift里是用Closures来代替Blocks的。它再续了Blocks的优点，简化了语法，令我爱不惜手。
+以下是官方用Closures实现reversed的例子：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">reversed</span> <span class="o">=</span> <span class="n">sort</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="p">{</span> <span class="p">(</span><span class="ss">s1</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span> <span class="ss">s2</span><span class="p">:</span> <span class="nb">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="no">Bool</span> <span class="k">in</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">s1</span> <span class="o">&gt;</span> <span class="n">s2</span>
+</span><span class='line'><span class="p">})</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>
+简化成：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">reversed</span> <span class="o">=</span> <span class="n">sort</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="o">&gt;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>
+这里我就不详解Closure的语法了，我来说说Closure的<strong>capture values</strong>。在Objective-C我们需要给变量加<strong>__block</strong>才能在block里面修改该外部变量。而用Closure，这不需要，我们能在Closures里访问和修改外部作用域的变量。另外，如果Closure里引用的实例包含或使用了Closure本身，这就会引起<strong>循环引用</strong>:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Person</span><span class="p">{</span>
+</span><span class='line'>    <span class="n">var</span> <span class="ss">age</span><span class="p">:</span><span class="no">Int</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span class='line'>    <span class="vi">@lazy</span> <span class="n">var</span> <span class="ss">agePotion</span><span class="p">:</span> <span class="p">(</span><span class="no">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="no">Void</span> <span class="o">=</span> <span class="p">{</span>
+</span><span class='line'>    <span class="p">(</span><span class="ss">agex</span><span class="p">:</span><span class="no">Int</span><span class="p">)</span><span class="o">-&gt;</span><span class="no">Void</span> <span class="k">in</span>
+</span><span class='line'>            <span class="nb">self</span><span class="o">.</span><span class="n">age</span> <span class="o">+=</span> <span class="n">agex</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="n">func</span> <span class="n">modifyAge</span><span class="p">(</span><span class="ss">agex</span><span class="p">:</span><span class="no">Int</span><span class="p">,</span> <span class="ss">modifier</span><span class="p">:(</span><span class="no">Int</span><span class="p">)</span><span class="o">-&gt;</span><span class="no">Void</span><span class="p">){</span>
+</span><span class='line'>        <span class="n">modifier</span><span class="p">(</span><span class="n">agex</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="n">var</span> <span class="ss">Mark</span><span class="p">:</span><span class="no">Person</span><span class="p">?</span> <span class="o">=</span> <span class="no">Person</span><span class="p">()</span>
+</span><span class='line'><span class="no">Mark</span><span class="o">!.</span><span class="n">modifyAge</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="no">Mark</span><span class="o">!.</span><span class="n">agePotion</span><span class="p">)</span>
+</span><span class='line'><span class="no">Mark</span> <span class="o">=</span> <span class="kp">nil</span> <span class="sr">//</span> <span class="no">Memory</span> <span class="no">Leak</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>
+看到agePotion里用了self，<strong>循环引用</strong>就发生了，要避免这问题，我们可以用<strong>Capture List</strong>，这会时分配进Closure的实例是weak或者unowned的，写法也很简单，只需在Closure的定义前加上<strong>[unownded self]</strong>，就可以得到一个unowned或者weak的self了。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="vi">@lazy</span> <span class="n">var</span> <span class="ss">agePotion</span><span class="p">:</span> <span class="p">(</span><span class="no">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="no">Void</span> <span class="o">=</span> <span class="p">{</span>
+</span><span class='line'>     <span class="o">[</span><span class="n">unowned</span> <span class="nb">self</span><span class="o">]</span><span class="p">(</span><span class="ss">agex</span><span class="p">:</span><span class="no">Int</span><span class="p">)</span><span class="o">-&gt;</span><span class="no">Void</span> <span class="k">in</span>
+</span><span class='line'>         <span class="nb">self</span><span class="o">.</span><span class="n">age</span> <span class="o">+=</span> <span class="n">agex</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
+
+<h3>Unowned &amp; Weak Reference</h3>
+
+<p>我们知道<strong>weak Reference</strong>在Objective-C的使用，在Swift上也是一样的。那么<strong>unowned reference</strong>又是什么呢？我就举个例子来解析吧。</p>
+
+<p>我来描述一下一个人与他的银行账号的关系：</p>
+
+<p>1.一个人可以有一个银行账号(optional)</p>
+
+<p>2.一个银行账号必须有拥有者(required)</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="sr">//</span><span class="no">We</span> <span class="n">can</span> <span class="n">describe</span> <span class="n">this</span> <span class="n">relation</span> <span class="n">with</span> <span class="ss">code</span><span class="p">:</span>
+</span><span class='line'><span class="k">class</span> <span class="nc">Person</span><span class="p">{</span>
+</span><span class='line'>    <span class="n">let</span> <span class="nb">name</span><span class="ss">:String</span>
+</span><span class='line'>    <span class="n">let</span> <span class="ss">account</span><span class="p">:</span><span class="no">BankAccount</span><span class="o">!</span>
+</span><span class='line'>    <span class="n">init</span><span class="p">(</span><span class="nb">name</span><span class="ss">:String</span><span class="p">){</span>
+</span><span class='line'>        <span class="nb">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="nb">name</span>
+</span><span class='line'>        <span class="nb">self</span><span class="o">.</span><span class="n">account</span> <span class="o">=</span> <span class="no">BankAccount</span><span class="p">(</span><span class="ss">owner</span><span class="p">:</span> <span class="nb">self</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="k">class</span> <span class="nc">BankAccount</span><span class="p">{</span>
+</span><span class='line'>    <span class="n">let</span> <span class="ss">owner</span><span class="p">:</span><span class="no">Person</span>
+</span><span class='line'>    <span class="n">init</span><span class="p">(</span><span class="ss">owner</span><span class="p">:</span><span class="no">Person</span><span class="p">){</span>
+</span><span class='line'>        <span class="nb">self</span><span class="o">.</span><span class="n">owner</span> <span class="o">=</span> <span class="n">owner</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这就生成了一个引用循环。一种解决方案是对BankAccount.owner属性添加weak reference。你也可以使用unowned reference，但这个属性就必须要非空了。总结就是<strong>unowned</strong>就只是比<strong>weak</strong>多了一个非空限制而已，其他一样的。</p>
+
+<h3>最后</h3>
+
+<p>在写Swift的过程中，越来越发现一些有趣的特性，这令我更想多写Swift，期待正式版Xcode 6。</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Ron</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-09-02T20:41:46+08:00" pubdate data-updated="true">Sep 2<sup>nd</sup>, 2014</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/08/31/swiftde-zhi-lei-xing-he-yin-yong-lei-xing-de-chai-bie/" title="Previous Post: Swift的值类型和引用类型的差别">&laquo; Swift的值类型和引用类型的差别</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2014/09/08/raywenderlich-dot-com-swiftfeng-ge-zhi-nan/" title="Next Post: raywenderlich.com Swift风格指南">raywenderlich.com Swift风格指南 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2016/03/06/%5B%3F%5D-ge-geng-ju-bao-rong-xing-de-jing-ji-fa-zhan-lan-tu/">一个更具包容性的经济发展蓝图</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/10/19/ru-he-cong-640-star-1136de-psdwen-jian-pi-liang-qie-chu-3xhe-2xde-png/">如何从640*1136的psd文件批量切出3x和2x的png</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/09/10/sui-ran-gang-shang-shi-de-iphone6yu-ipgua-pei-bu-gong-zuo-liao-ma-%3F/">关于大屏iPhone的适配</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/09/08/raywenderlich-dot-com-swiftfeng-ge-zhi-nan/">raywenderlich.com Swift风格指南</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/09/02/cong-objective-czhuan-yi-dao-xu-yao-zhu-yi-de-di-fang/">从Objective-C转移到Swift需要注意的地方</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2016 - Ron -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

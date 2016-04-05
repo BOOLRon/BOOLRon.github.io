@@ -1,98 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
 
-<!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <title>Ron's Blog</title>
-  <meta name="author" content="Ron">
-
-  
-  <meta name="description" content="哈佛商学院校友最近的一项调查发现，71%的受访者认为他们的生意受到了不平等，中产阶级的停滞，日益增长的贫困，或有限的经济流动的伤害。66%的受访者认为解决这些问题比促进经济发展重要。 尽管如此，许多雇主仍然觉得采取诸如改善工人和家庭的福祉的行动，是别人的工作。 这种心态是一个错误。 &hellip;">
-  
-
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  
-  <link rel="canonical" href="http://BOOLRon.github.io">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <link href="/atom.xml" rel="alternate" title="Ron's Blog" type="application/atom+xml">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
-
-  
-
-</head>
-
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">Ron's Blog</a></h1>
-  
-    <h2>攻城狮成长记</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="https://www.google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:BOOLRon.github.io" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul class="main-navigation">
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-</ul>
-
-</nav>
-  <div id="main">
-    <div id="content">
-      <div class="blog-index">
-  
-  
-  
-    <article>
-      
-  <header>
+  <title><![CDATA[Ron's Blog]]></title>
+  <link href="http://BOOLRon.github.io/atom.xml" rel="self"/>
+  <link href="http://BOOLRon.github.io/"/>
+  <updated>2016-03-06T18:48:46+08:00</updated>
+  <id>http://BOOLRon.github.io/</id>
+  <author>
+    <name><![CDATA[Ron]]></name>
     
-      <h1 class="entry-title"><a href="/blog/2016/03/06/%5B%3F%5D-ge-geng-ju-bao-rong-xing-de-jing-ji-fa-zhan-lan-tu/">一个更具包容性的经济发展蓝图</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
 
   
-
-
-<time datetime="2016-03-06T18:44:17+08:00" pubdate data-updated="true">Mar 6<sup>th</sup>, 2016</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>哈佛商学院校友最近的一项调查发现，71%的受访者认为他们的生意受到了<code>不平等</code>，<code>中产阶级的停滞</code>，<code>日益增长的贫困</code>，或<code>有限的经济流动</code>的伤害。66%的受访者认为解决这些问题比促进经济发展重要。</p>
+  <entry>
+    <title type="html"><![CDATA[一个更具包容性的经济发展蓝图]]></title>
+    <link href="http://BOOLRon.github.io/blog/2016/03/06/%5B%3F%5D-ge-geng-ju-bao-rong-xing-de-jing-ji-fa-zhan-lan-tu/"/>
+    <updated>2016-03-06T18:44:17+08:00</updated>
+    <id>http://BOOLRon.github.io/blog/2016/03/06/[?]-ge-geng-ju-bao-rong-xing-de-jing-ji-fa-zhan-lan-tu</id>
+    <content type="html"><![CDATA[<p>哈佛商学院校友最近的一项调查发现，71%的受访者认为他们的生意受到了<code>不平等</code>，<code>中产阶级的停滞</code>，<code>日益增长的贫困</code>，或<code>有限的经济流动</code>的伤害。66%的受访者认为解决这些问题比促进经济发展重要。</p>
 
 <p>尽管如此，许多雇主仍然觉得采取诸如改善工人和家庭的福祉的行动，是别人的工作。</p>
 
@@ -109,42 +35,15 @@
 <h3>重点支持能提供良好的就业机会的行业</h3>
 
 <p>不是所有的工作都是平等的。在美国每四个成年人，几乎就有一个人的工资难以维持正常生活，而国民经济中的低收入工作岗位却越来越多。根据国家就业法项目的报告，230万以上的工人受雇于低工资行业，而不是经济衰退的开始，而在中等收入和高工资行业就业的则少了120万。所有群体的经济活动开始于就业，它能使一个工人脱离贫困，做不到这样就无法减少种族差异、提高经济流动性。为提高包容性，领导者必须优先支持那些能提供较高人均收入、能维持家庭的工作岗位的产业。</p>
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/10/19/ru-he-cong-640-star-1136de-psdwen-jian-pi-liang-qie-chu-3xhe-2xde-png/">如何从640*1136的psd文件批量切出3x和2x的png</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-10-19T22:01:39+08:00" pubdate data-updated="true">Oct 19<sup>th</sup>, 2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>我们知道设计师给到的psd一般都按640*1136的分辨率来做的，这也不能怪他们，因为他们需要一边设计一边投射到iPhone上看效果，而用iPhone6 Plus的设计师不多，大部分都是4寸的iPhone。而我们需要@3x的图才能在iPhone6 Plus上有比较绚丽的效果，下面我就分享一下如果从psd批量切出@3x和2x的png。</p>
+  <entry>
+    <title type="html"><![CDATA[如何从640*1136的psd文件批量切出3x和2x的png]]></title>
+    <link href="http://BOOLRon.github.io/blog/2014/10/19/ru-he-cong-640-star-1136de-psdwen-jian-pi-liang-qie-chu-3xhe-2xde-png/"/>
+    <updated>2014-10-19T22:01:39+08:00</updated>
+    <id>http://BOOLRon.github.io/blog/2014/10/19/ru-he-cong-640-star-1136de-psdwen-jian-pi-liang-qie-chu-3xhe-2xde-png</id>
+    <content type="html"><![CDATA[<p>我们知道设计师给到的psd一般都按640*1136的分辨率来做的，这也不能怪他们，因为他们需要一边设计一边投射到iPhone上看效果，而用iPhone6 Plus的设计师不多，大部分都是4寸的iPhone。而我们需要@3x的图才能在iPhone6 Plus上有比较绚丽的效果，下面我就分享一下如果从psd批量切出@3x和2x的png。</p>
 
 <p>首先设计师把psd扔给我说，“我很忙啊，自己切吧”，“哦”。</p>
 
@@ -153,42 +52,15 @@
 <p>在比如说我们要批量导出几个按钮的icon，继续同时选中它们，然后设置好导出路径，点击[导出选中图层]，然后在设定的路径上会多好几个文件夹，其中<strong>drawable-xxhdpi</strong>文件夹里放的就是我们想要的@3x的图了，接着可以借助重明名工具批量添加@3x的后缀，最后全选@3x的png，一起拖进<a href="http://testzone.qiniudn.com/gandou3xExporter.app.zip">甘豆3xExporter</a>（一个批量将3x图导出成2x和1x的小工具）即可。</p>
 
 <p>具体操作我录制了个<a href="http://testzone.qiniudn.com/%E5%A6%82%E4%BD%95%E4%BB%8E640*1136%E7%9A%84psd%E6%96%87%E4%BB%B6%E6%89%B9%E9%87%8F%E5%88%87%E5%87%BA3x%E5%92%8C2x%E7%9A%84png.mov">小视频</a></p>
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/09/10/sui-ran-gang-shang-shi-de-iphone6yu-ipgua-pei-bu-gong-zuo-liao-ma-%3F/">关于大屏iPhone的适配</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-09-10T21:41:27+08:00" pubdate data-updated="true">Sep 10<sup>th</sup>, 2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h3>背景</h3>
+  <entry>
+    <title type="html"><![CDATA[关于大屏iPhone的适配]]></title>
+    <link href="http://BOOLRon.github.io/blog/2014/09/10/sui-ran-gang-shang-shi-de-iphone6yu-ipgua-pei-bu-gong-zuo-liao-ma-%3F/"/>
+    <updated>2014-09-10T21:41:27+08:00</updated>
+    <id>http://BOOLRon.github.io/blog/2014/09/10/sui-ran-gang-shang-shi-de-iphone6yu-ipgua-pei-bu-gong-zuo-liao-ma-?</id>
+    <content type="html"><![CDATA[<h3>背景</h3>
 
 <p>话说昨晚苹果2014秋季发布会推出了iPhone6与iPhone6 Plus，作为开发者我最关心的当然是适配问题。</p>
 
@@ -225,42 +97,15 @@
 <h3>最后</h3>
 
 <p>最后推测一下：以后苹果有可能说提交App Store必须带Retina HD启动图，所以掌握AutoLayout是很必要的。</p>
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/09/08/raywenderlich-dot-com-swiftfeng-ge-zhi-nan/">raywenderlich.com Swift风格指南</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-09-08T15:28:49+08:00" pubdate data-updated="true">Sep 8<sup>th</sup>, 2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>因为该指南关注于网页上以及打印版的可读性，所以它可能与你阅读过的指南有所不同。为了保证那些在我们书中、教程里以及初学者工程里的代码美观并且一致，我们写下了这份风格指南，尽管书由许多不同作者共同创作而成。</p>
+  <entry>
+    <title type="html"><![CDATA[raywenderlich.com Swift风格指南]]></title>
+    <link href="http://BOOLRon.github.io/blog/2014/09/08/raywenderlich-dot-com-swiftfeng-ge-zhi-nan/"/>
+    <updated>2014-09-08T15:28:49+08:00</updated>
+    <id>http://BOOLRon.github.io/blog/2014/09/08/raywenderlich-dot-com-swiftfeng-ge-zhi-nan</id>
+    <content type="html"><![CDATA[<p>因为该指南关注于网页上以及打印版的可读性，所以它可能与你阅读过的指南有所不同。为了保证那些在我们书中、教程里以及初学者工程里的代码美观并且一致，我们写下了这份风格指南，尽管书由许多不同作者共同创作而成。</p>
 
 <p>该指南的首要目标是让代码紧凑，可读性高且简洁。</p>
 
@@ -866,42 +711,15 @@
 <li><a href="https://developer.apple.com/library/prerelease/ios/documentation/General/Reference/SwiftStandardLibraryReference/index.html">Swift Standard Library Reference</a></li>
 </ul>
 
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/09/02/cong-objective-czhuan-yi-dao-xu-yao-zhu-yi-de-di-fang/">从Objective-C转移到Swift需要注意的地方</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-09-02T20:41:46+08:00" pubdate data-updated="true">Sep 2<sup>nd</sup>, 2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>我想通过这文章分享一下我从Objective-C转移到Swift过程中的一些想法。我会给你一些提示并讨论相关的陷阱，尽可能去比较两种语言的方法有何不同。废话不多说，马上开始！</p>
+  <entry>
+    <title type="html"><![CDATA[从Objective-C转移到Swift需要注意的地方]]></title>
+    <link href="http://BOOLRon.github.io/blog/2014/09/02/cong-objective-czhuan-yi-dao-xu-yao-zhu-yi-de-di-fang/"/>
+    <updated>2014-09-02T20:41:46+08:00</updated>
+    <id>http://BOOLRon.github.io/blog/2014/09/02/cong-objective-czhuan-yi-dao-xu-yao-zhu-yi-de-di-fang</id>
+    <content type="html"><![CDATA[<p>我想通过这文章分享一下我从Objective-C转移到Swift过程中的一些想法。我会给你一些提示并讨论相关的陷阱，尽可能去比较两种语言的方法有何不同。废话不多说，马上开始！</p>
 
 <h3>xxx.swift VS xxx.h&amp;xxx.m</h3>
 
@@ -1413,42 +1231,15 @@
 <h3>最后</h3>
 
 <p>在写Swift的过程中，越来越发现一些有趣的特性，这令我更想多写Swift，期待正式版Xcode 6。</p>
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/08/31/swiftde-zhi-lei-xing-he-yin-yong-lei-xing-de-chai-bie/">Swift的值类型和引用类型的差别</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-31T19:49:25+08:00" pubdate data-updated="true">Aug 31<sup>st</sup>, 2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Swift的值分两种类型：值类型和引用类型。前者的实例保存着数据相同且各自独立的副本，像struct、enum和tuple这些；而后者的实例保存同一份数据，如class。这文章我们来挖掘这两种类型各自的优点以及思考开发中要如何选用</p>
+  <entry>
+    <title type="html"><![CDATA[Swift的值类型和引用类型的差别]]></title>
+    <link href="http://BOOLRon.github.io/blog/2014/08/31/swiftde-zhi-lei-xing-he-yin-yong-lei-xing-de-chai-bie/"/>
+    <updated>2014-08-31T19:49:25+08:00</updated>
+    <id>http://BOOLRon.github.io/blog/2014/08/31/swiftde-zhi-lei-xing-he-yin-yong-lei-xing-de-chai-bie</id>
+    <content type="html"><![CDATA[<p>Swift的值分两种类型：值类型和引用类型。前者的实例保存着数据相同且各自独立的副本，像struct、enum和tuple这些；而后者的实例保存同一份数据，如class。这文章我们来挖掘这两种类型各自的优点以及思考开发中要如何选用</p>
 
 <h3>有何不同</h3>
 
@@ -1518,42 +1309,15 @@
 
 
 <p>在Swift的世界，Array、String和Dictionary都是值类型，他们就像C语言的int类型，保持着相对独立的数据，你不需要显式声明copy来避免数据被偷偷修改，更重要的是你可以安全地线程间传值而不需要synchronization。得益与这一特性，这可以助你用Swift写出更安全可控的代码。</p>
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/08/09/zhuang-ji-ji-lu/">装机记录</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-09T09:36:11+08:00" pubdate data-updated="true">Aug 9<sup>th</sup>, 2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><hr />
+  <entry>
+    <title type="html"><![CDATA[装机记录]]></title>
+    <link href="http://BOOLRon.github.io/blog/2014/08/09/zhuang-ji-ji-lu/"/>
+    <updated>2014-08-09T09:36:11+08:00</updated>
+    <id>http://BOOLRon.github.io/blog/2014/08/09/zhuang-ji-ji-lu</id>
+    <content type="html"><![CDATA[<hr />
 
 <h4>GUI安装</h4>
 
@@ -1648,186 +1412,45 @@ alias gpod='git push origin develop'
 <pre><code>gem install bundler
 bundle install
 </code></pre>
-</div>
+]]></content>
+  </entry>
   
+  <entry>
+    <title type="html"><![CDATA[挺喜欢Xcode的新icon]]></title>
+    <link href="http://BOOLRon.github.io/blog/2014/07/30/ting-xi-huan-xcodede-xin-icon/"/>
+    <updated>2014-07-30T08:58:15+08:00</updated>
+    <id>http://BOOLRon.github.io/blog/2014/07/30/ting-xi-huan-xcodede-xin-icon</id>
+    <content type="html"><![CDATA[<p><img src="http://testzone.qiniudn.com/Screen%20Shot%202014-07-30%20at%209.00.45%20am.png" alt="image" /></p>
+]]></content>
+  </entry>
   
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/07/30/ting-xi-huan-xcodede-xin-icon/">挺喜欢Xcode的新icon</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-07-30T08:58:15+08:00" pubdate data-updated="true">Jul 30<sup>th</sup>, 2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><img src="http://testzone.qiniudn.com/Screen%20Shot%202014-07-30%20at%209.00.45%20am.png" alt="image" /></p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/07/19/ru-he-zai-ios7she-zhi-he-gua-de-uinavigationbaryan-se/">如何在iOS7设置合适的UINavigationBar颜色</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-07-19T13:39:51+08:00" pubdate data-updated="true">Jul 19<sup>th</sup>, 2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Bar color calculator for iOS7 (UIToolbar and UINavigationBar)(<a href="http://b2cloud.com.au/how-to-guides/bar-color-calculator-for-ios7/">http://b2cloud.com.au/how-to-guides/bar-color-calculator-for-ios7/</a>)</p>
+  <entry>
+    <title type="html"><![CDATA[如何在iOS7设置合适的UINavigationBar颜色]]></title>
+    <link href="http://BOOLRon.github.io/blog/2014/07/19/ru-he-zai-ios7she-zhi-he-gua-de-uinavigationbaryan-se/"/>
+    <updated>2014-07-19T13:39:51+08:00</updated>
+    <id>http://BOOLRon.github.io/blog/2014/07/19/ru-he-zai-ios7she-zhi-he-gua-de-uinavigationbaryan-se</id>
+    <content type="html"><![CDATA[<p>Bar color calculator for iOS7 (UIToolbar and UINavigationBar)(<a href="http://b2cloud.com.au/how-to-guides/bar-color-calculator-for-ios7/">http://b2cloud.com.au/how-to-guides/bar-color-calculator-for-ios7/</a>)</p>
 
 <p>如何在 iOS 7 中设置 barTintColor 实现类似网易和 Facebook 的 navigationBar 效果(<a href="http://imallen.com/blog/2013/10/22/how-to-set-bartintcolor-correctly-in-ios-7.html">http://imallen.com/blog/2013/10/22/how-to-set-bartintcolor-correctly-in-ios-7.html</a>)</p>
-</div>
+]]></content>
+  </entry>
   
+  <entry>
+    <title type="html"><![CDATA[这博客的目的]]></title>
+    <link href="http://BOOLRon.github.io/blog/2014/07/17/zhe-bo-ke-de-mu-de/"/>
+    <updated>2014-07-17T09:26:06+08:00</updated>
+    <id>http://BOOLRon.github.io/blog/2014/07/17/zhe-bo-ke-de-mu-de</id>
+    <content type="html"><![CDATA[<p>希望通过博客记录自己的技术成长，顺便提高文笔水平</p>
+]]></content>
+  </entry>
   
-
-
-    </article>
+  <entry>
+    <title type="html"><![CDATA[汇集那些未来可能会变化的Swift功能]]></title>
+    <link href="http://BOOLRon.github.io/blog/2014/07/16/hui-ji-na-xie-wei-lai-ke-neng-hui-bian-hua-de-swiftgong-neng/"/>
+    <updated>2014-07-16T14:42:25+08:00</updated>
+    <id>http://BOOLRon.github.io/blog/2014/07/16/hui-ji-na-xie-wei-lai-ke-neng-hui-bian-hua-de-swiftgong-neng</id>
+    <content type="html"><![CDATA[<p>Swift InFlux(<a href="https://github.com/ksm/SwiftInFlux">https://github.com/ksm/SwiftInFlux</a>)</p>
+]]></content>
+  </entry>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/07/17/zhe-bo-ke-de-mu-de/">这博客的目的</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-07-17T09:26:06+08:00" pubdate data-updated="true">Jul 17<sup>th</sup>, 2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>希望通过博客记录自己的技术成长，顺便提高文笔水平</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  <div class="pagination">
-    
-      <a class="prev" href="/posts/2">&larr; Older</a>
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
-</div>
-<aside class="sidebar">
-  
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/blog/2016/03/06/%5B%3F%5D-ge-geng-ju-bao-rong-xing-de-jing-ji-fa-zhan-lan-tu/">一个更具包容性的经济发展蓝图</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/10/19/ru-he-cong-640-star-1136de-psdwen-jian-pi-liang-qie-chu-3xhe-2xde-png/">如何从640*1136的psd文件批量切出3x和2x的png</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/09/10/sui-ran-gang-shang-shi-de-iphone6yu-ipgua-pei-bu-gong-zuo-liao-ma-%3F/">关于大屏iPhone的适配</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/09/08/raywenderlich-dot-com-swiftfeng-ge-zhi-nan/">raywenderlich.com Swift风格指南</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/09/02/cong-objective-czhuan-yi-dao-xu-yao-zhu-yi-de-di-fang/">从Objective-C转移到Swift需要注意的地方</a>
-      </li>
-    
-  </ul>
-</section>
-
-
-
-
-
-  
-</aside>
-
-    </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2016 - Ron -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
-
-</footer>
-  
-
-
-
-
-
-
-
-
-
-
-
-</body>
-</html>
+</feed>

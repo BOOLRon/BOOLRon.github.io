@@ -1,0 +1,807 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>raywenderlich.com Swift风格指南 - Ron's Blog</title>
+  <meta name="author" content="Ron">
+
+  
+  <meta name="description" content="因为该指南关注于网页上以及打印版的可读性，所以它可能与你阅读过的指南有所不同。为了保证那些在我们书中、教程里以及初学者工程里的代码美观并且一致，我们写下了这份风格指南，尽管书由许多不同作者共同创作而成。 该指南的首要目标是让代码紧凑，可读性高且简洁。 目录 语言
+间隔
+注释
+命名 类前缀 分号 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://BOOLRon.github.io/blog/2014/09/08/raywenderlich-dot-com-swiftfeng-ge-zhi-nan">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Ron's Blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Ron's Blog</a></h1>
+  
+    <h2>攻城狮成长记</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:BOOLRon.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">raywenderlich.com Swift风格指南</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-09-08T15:28:49+08:00" pubdate data-updated="true">Sep 8<sup>th</sup>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>因为该指南关注于网页上以及打印版的可读性，所以它可能与你阅读过的指南有所不同。为了保证那些在我们书中、教程里以及初学者工程里的代码美观并且一致，我们写下了这份风格指南，尽管书由许多不同作者共同创作而成。</p>
+
+<p>该指南的首要目标是让代码紧凑，可读性高且简洁。</p>
+
+<h2>目录</h2>
+
+<ul>
+<li><a href="#%E8%AF%AD%E8%A8%80">语言</a></li>
+<li><a href="#%E9%97%B4%E9%9A%94">间隔</a></li>
+<li><a href="#%E6%B3%A8%E9%87%8A">注释</a></li>
+<li><a href="#%E5%91%BD%E5%90%8D">命名</a>
+
+<ul>
+<li><a href="#%E7%B1%BB%E5%89%8D%E7%BC%80">类前缀</a></li>
+</ul>
+</li>
+<li><a href="#%E5%88%86%E5%8F%B7">分号</a></li>
+<li><a href="#%E7%B1%BB%E4%B8%8E%E7%BB%93%E6%9E%84%E4%BD%93">类与结构体</a></li>
+<li><a href="#%E5%87%BD%E6%95%B0%E5%A3%B0%E6%98%8E">函数声明</a></li>
+<li><a href="#%E9%97%AD%E5%8C%85">闭包</a></li>
+<li><a href="#%E7%B1%BB%E5%9E%8B">类型</a>
+
+<ul>
+<li><a href="#%E5%B8%B8%E9%87%8F">常量</a></li>
+<li><a href="#Optional">Optional</a></li>
+<li><a href="#%E7%B1%BB%E5%9E%8B%E6%8E%A8%E5%AF%BC">类型推导</a></li>
+<li><a href="#%E8%AF%AD%E6%B3%95%E7%B3%96">语法糖</a></li>
+</ul>
+</li>
+<li><a href="#%E6%8E%A7%E5%88%B6%E6%B5%81">控制流</a></li>
+<li><a href="#Self%E7%9A%84%E4%BD%BF%E7%94%A8">Self的使用</a></li>
+<li><a href="#%E7%AC%91%E8%84%B8">笑脸</a></li>
+<li><a href="#%E8%87%B4%E8%B0%A2">致谢</a></li>
+</ul>
+
+
+<h2>语言</h2>
+
+<p>使用美式英语拼写以确保和苹果公司的API一致</p>
+
+<p><strong>优选：</strong></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">var</span> <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;red&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>不建议使用：</strong></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">var</span> <span class="n">colour</span> <span class="o">=</span> <span class="s2">&quot;red&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>间隔</h2>
+
+<ul>
+<li>使用2个空格而不是Tab进行缩进，可以减少换行。确保在Xcode的配置项中使用此设置。</li>
+<li>方法的花括号以及其它花括号（<code>if</code>/<code>else</code>/<code>switch</code>/<code>while</code>等等）总是跟语句在同一行开始，新起一行结束。</li>
+</ul>
+
+
+<p><strong>优选：</strong></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">if</span> <span class="n">user</span><span class="o">.</span><span class="n">isHappy</span> <span class="p">{</span>
+</span><span class='line'>  <span class="sr">//</span><span class="no">Do</span> <span class="n">something</span>
+</span><span class='line'><span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>  <span class="sr">//</span><span class="no">Do</span> <span class="n">something</span> <span class="k">else</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>不建议使用：</strong></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">if</span> <span class="n">user</span><span class="o">.</span><span class="n">isHappy</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="sr">//</span><span class="no">Do</span> <span class="n">something</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>    <span class="sr">//</span><span class="no">Do</span> <span class="n">something</span> <span class="k">else</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>方法之间应该总是用一个空行进行分隔以提高视觉以及结构上的清晰度。方法中的空白用来分开功能块，但是如果一个方法中存在太多功能块时，通常意味着你需要将它重构为多个方法。</li>
+</ul>
+
+
+<h2>注释</h2>
+
+<ul>
+<li><p>在需要的时候使用注释说明一块代码<strong>为什么</strong>这么做。注释必须时刻跟进代码，不然删了得了。</p></li>
+<li><p>代码应该尽可能的自文档化，避免在代码中使用成块的注释。<strong>例外：该规则不适用与用于生成文档的块注释。</strong></p></li>
+</ul>
+
+
+<h2>命名</h2>
+
+<p>使用驼峰法为类、方法、变量等取一个描述性强的名字。模块范围的类名和常量名以大写字母开头，而方法名和变量名应以小写字母开头。</p>
+
+<p><strong>优选：</strong></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">let</span> <span class="no">MaximumWidgetCount</span> <span class="o">=</span> <span class="mi">100</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">WidgetContainer</span> <span class="p">{</span>
+</span><span class='line'>  <span class="n">var</span> <span class="ss">widgetButton</span><span class="p">:</span> <span class="no">UIButton</span>
+</span><span class='line'>  <span class="n">let</span> <span class="n">widgetHeightPercentage</span> <span class="o">=</span> <span class="mi">0</span><span class="o">.</span><span class="mi">85</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>不建议使用：</strong></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">let</span> <span class="no">MAX_WIDGET_COUNT</span> <span class="o">=</span> <span class="mi">100</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="n">app_widgetContainer</span> <span class="p">{</span>
+</span><span class='line'>  <span class="n">var</span> <span class="ss">wBut</span><span class="p">:</span> <span class="no">UIButton</span>
+</span><span class='line'>  <span class="n">let</span> <span class="n">wHeightPct</span> <span class="o">=</span> <span class="mi">0</span><span class="o">.</span><span class="mi">85</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>对于函数以及初始化方法，除非上下文含义非常清楚，推荐对所有的参数都加以命名。如果外部参数名称可以使得函数调用更易读，请加上它。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">func</span> <span class="n">dateFromString</span><span class="p">(</span><span class="ss">dateString</span><span class="p">:</span> <span class="no">NSString</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="no">NSDate</span>
+</span><span class='line'><span class="n">func</span> <span class="n">convertPointAt</span><span class="p">(</span><span class="c1">#column: Int, #row: Int) -&gt; CGPoint</span>
+</span><span class='line'><span class="n">func</span> <span class="n">timedAction</span><span class="p">(</span><span class="c1">#delay: NSTimeInterval, perform action: SKAction) -&gt; SKAction!</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">//</span> <span class="err">会被这样调用</span>
+</span><span class='line'><span class="n">dateFromString</span><span class="p">(</span><span class="s2">&quot;2014-03-14&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="n">convertPointAt</span><span class="p">(</span><span class="ss">column</span><span class="p">:</span> <span class="mi">42</span><span class="p">,</span> <span class="ss">row</span><span class="p">:</span> <span class="mi">13</span><span class="p">)</span>
+</span><span class='line'><span class="n">timedAction</span><span class="p">(</span><span class="ss">delay</span><span class="p">:</span> <span class="mi">1</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span> <span class="ss">perform</span><span class="p">:</span> <span class="n">someOtherAction</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>对于方法，遵循苹果公司的命名规范，在方法名中提及第一个参数：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Guideline</span> <span class="p">{</span>
+</span><span class='line'>  <span class="n">func</span> <span class="n">combineWithString</span><span class="p">(</span><span class="ss">incoming</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span> <span class="ss">options</span><span class="p">:</span> <span class="no">Dictionary</span><span class="sc">?)</span> <span class="p">{</span> <span class="o">.</span><span class="n">.</span><span class="o">.</span> <span class="p">}</span>
+</span><span class='line'>  <span class="n">func</span> <span class="n">upvoteBy</span><span class="p">(</span><span class="ss">amount</span><span class="p">:</span> <span class="no">Int</span><span class="p">)</span> <span class="p">{</span> <span class="o">.</span><span class="n">.</span><span class="o">.</span> <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在所有提及到函数的内容中（包括教程，书以及评论），请从调用者的视角进行考虑，将所有的必要参数名都包含进来：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">dateFromString</span><span class="p">()</span><span class="err">函数真是太棒了。</span>
+</span><span class='line'><span class="err">在你的</span><span class="n">init</span><span class="p">()</span><span class="err">方法中调用</span><span class="n">convertPointAt</span><span class="p">(</span><span class="ss">column</span><span class="p">:,</span> <span class="ss">row</span><span class="p">:)</span><span class="err">。</span>
+</span><span class='line'><span class="n">timedAction</span><span class="p">(</span><span class="ss">delay</span><span class="p">:,</span> <span class="ss">perform</span><span class="p">:)</span><span class="err">的返回值可能为</span><span class="kp">nil</span><span class="err">。</span>
+</span><span class='line'><span class="no">Guideline</span><span class="err">对象只有两个方法：</span><span class="n">combineWithString</span><span class="p">(</span><span class="ss">options</span><span class="p">:)</span><span class="err">和</span><span class="n">upvoteBy</span><span class="p">()</span><span class="err">。</span>
+</span><span class='line'><span class="err">你不应该直接调用数据源方法</span><span class="n">tableView</span><span class="p">(</span><span class="ss">cellForRowAtIndexPath</span><span class="p">:)</span><span class="err">。</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>类前缀</h3>
+
+<p>Swift中的类型会被自动加入包含它们的模块的命名空间。所以减少命名冲突的前缀已经不必要了。如果同模块的两个名称冲突了，可以在名称前加上模块名消除歧义：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">import</span> <span class="no">MyModule</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">var</span> <span class="n">myClass</span> <span class="o">=</span> <span class="no">MyModule</span><span class="o">.</span><span class="n">MyClass</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>不应该</strong>给自己创建的Swift类型加前缀。</p>
+
+<p>如果需要把Swift类型暴露给Objective-C使用，你可以添加一个合适的前缀（前缀的命名请参考<a href="https://github.com/raywenderlich/objective-c-style-guide">Objective-C风格指南</a>）:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="vi">@objc</span> <span class="p">(</span><span class="no">RWTChicken</span><span class="p">)</span> <span class="k">class</span> <span class="nc">Chicken</span> <span class="p">{</span>
+</span><span class='line'>   <span class="o">.</span><span class="n">.</span><span class="o">.</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>分号</h2>
+
+<p>Swift不要求每条语句后加分号。只有在你想把多条语句写到一行时才需要加上分号。</p>
+
+<p>请不要在一行中写上用分号隔开的多条语句。</p>
+
+<p>这条规则的唯一例外就是<code>for-conditional-increment</code>结构，该结构中分号是必需的。不过请尽量用<code>for-in</code>结构代替它们。</p>
+
+<p><strong>优选：</strong></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">var</span> <span class="n">swift</span> <span class="o">=</span> <span class="s2">&quot;not a scripting language&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>不建议使用：</strong></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">var</span> <span class="n">swift</span> <span class="o">=</span> <span class="s2">&quot;not a scripting language&quot;</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>请注意</strong>：Swift与JavaScript不同, 在后者中省略分号<a href="http://stackoverflow.com/questions/444080/do-you-recommend-using-semicolons-after-every-statement-in-javascript">通常是不安全的</a>。</p>
+
+<h2>类与结构体</h2>
+
+<p>下面是一个风格良好的类定义代码例子，请参考：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Circle</span><span class="p">:</span> <span class="no">Shape</span> <span class="p">{</span>
+</span><span class='line'>  <span class="n">var</span> <span class="ss">x</span><span class="p">:</span> <span class="no">Int</span><span class="p">,</span> <span class="ss">y</span><span class="p">:</span> <span class="no">Int</span>
+</span><span class='line'>  <span class="n">var</span> <span class="ss">radius</span><span class="p">:</span> <span class="no">Double</span>
+</span><span class='line'>  <span class="n">var</span> <span class="ss">diameter</span><span class="p">:</span> <span class="no">Double</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">get</span> <span class="p">{</span>
+</span><span class='line'>      <span class="k">return</span> <span class="n">radius</span> <span class="o">*</span> <span class="mi">2</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="n">set</span> <span class="p">{</span>
+</span><span class='line'>      <span class="n">radius</span> <span class="o">=</span> <span class="n">newValue</span> <span class="o">/</span> <span class="mi">2</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">init</span><span class="p">(</span><span class="ss">x</span><span class="p">:</span> <span class="no">Int</span><span class="p">,</span> <span class="ss">y</span><span class="p">:</span> <span class="no">Int</span><span class="p">,</span> <span class="ss">radius</span><span class="p">:</span> <span class="no">Double</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nb">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
+</span><span class='line'>    <span class="nb">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span>
+</span><span class='line'>    <span class="nb">self</span><span class="o">.</span><span class="n">radius</span> <span class="o">=</span> <span class="n">radius</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">convenience</span> <span class="n">init</span><span class="p">(</span><span class="ss">x</span><span class="p">:</span> <span class="no">Int</span><span class="p">,</span> <span class="ss">y</span><span class="p">:</span> <span class="no">Int</span><span class="p">,</span> <span class="ss">diameter</span><span class="p">:</span> <span class="no">Double</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nb">self</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="ss">x</span><span class="p">:</span> <span class="n">x</span><span class="p">,</span> <span class="ss">y</span><span class="p">:</span> <span class="n">y</span><span class="p">,</span> <span class="ss">radius</span><span class="p">:</span> <span class="n">diameter</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">func</span> <span class="n">describe</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">String</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="s2">&quot;I am a circle at (\(x),\(y)) with an area of \(computeArea())&quot;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">func</span> <span class="n">computeArea</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="no">Double</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="no">M_PI</span> <span class="o">*</span> <span class="n">radius</span> <span class="o">*</span> <span class="n">radius</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>上面的例子阐述了如下的风格准则：</p>
+
+<ul>
+<li>给属性、变量、常量、参数及其它语句指定类型时，在冒号的后面加上空格而不是前面，比如：<code>x: Int</code>跟<code>Circle: Shape</code>。</li>
+<li>对getter跟setter定义以及属性观察器进行缩进。</li>
+<li>如果多个变量、结构有着同样的目的或者上下文，在同一行上进行定义。</li>
+</ul>
+
+
+<h2>Self的使用</h2>
+
+<p>在Swift中访问对象属性或调用方法时不需要使用<code>self</code>，请避免使用它。</p>
+
+<p>使用<code>self</code>的唯一理由是在初始化一个类或结构体时区分属性名和参数名：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">BoardLocation</span> <span class="p">{</span>
+</span><span class='line'>  <span class="n">let</span> <span class="ss">row</span><span class="p">:</span> <span class="no">Int</span><span class="p">,</span> <span class="ss">column</span><span class="p">:</span> <span class="no">Int</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">init</span><span class="p">(</span><span class="ss">row</span><span class="p">:</span> <span class="no">Int</span><span class="p">,</span><span class="ss">column</span><span class="p">:</span> <span class="no">Int</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nb">self</span><span class="o">.</span><span class="n">row</span> <span class="o">=</span> <span class="n">row</span>
+</span><span class='line'>    <span class="nb">self</span><span class="o">.</span><span class="n">column</span> <span class="o">=</span> <span class="n">column</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>函数声明</h2>
+
+<p>保持函数声明短小精悍，保持在一行内，花括号在同一行内开始：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">func</span> <span class="n">reticulateSplines</span><span class="p">(</span><span class="ss">spline</span><span class="p">:</span> <span class="o">[</span><span class="no">Double</span><span class="o">]</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="no">Bool</span> <span class="p">{</span>
+</span><span class='line'>  <span class="sr">//</span> <span class="n">reticulate</span> <span class="n">code</span> <span class="n">goes</span> <span class="n">here</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>对于有着长签名的函数，请在适当的位置进行断行且对后续行缩进一级：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">func</span> <span class="n">reticulateSplines</span><span class="p">(</span><span class="ss">spline</span><span class="p">:</span> <span class="o">[</span><span class="no">Double</span><span class="o">]</span><span class="p">,</span> <span class="ss">adjustmentFactor</span><span class="p">:</span> <span class="no">Double</span><span class="p">,</span>
+</span><span class='line'>    <span class="ss">translateConstant</span><span class="p">:</span> <span class="no">Int</span><span class="p">,</span> <span class="ss">comment</span><span class="p">:</span> <span class="nb">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="no">Bool</span> <span class="p">{</span>
+</span><span class='line'>  <span class="sr">//</span> <span class="n">reticulate</span> <span class="n">code</span> <span class="n">goes</span> <span class="n">here</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>闭包</h2>
+
+<p>尽可能地使用尾闭包语法。在所有的情况下给闭包参数一个描述性强的名称：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">return</span> <span class="no">SKAction</span><span class="o">.</span><span class="n">customActionWithDuration</span><span class="p">(</span><span class="n">effect</span><span class="o">.</span><span class="n">duration</span><span class="p">)</span> <span class="p">{</span> <span class="n">node</span><span class="p">,</span> <span class="n">elapsedTime</span> <span class="k">in</span>
+</span><span class='line'>  <span class="sr">//</span> <span class="n">more</span> <span class="n">code</span> <span class="n">goes</span> <span class="n">here</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>对于上下文清晰的单表达式闭包，使用隐式的返回值：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">attendeeList</span><span class="o">.</span><span class="n">sort</span> <span class="p">{</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="k">in</span>
+</span><span class='line'>  <span class="n">a</span> <span class="o">&gt;</span> <span class="n">b</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>类型</h2>
+
+<p>如果可能，使用Swift的原生类型。Swift提供了对Objective-C的桥接，如果需要，仍然可以使用全部的Objective-C方法：</p>
+
+<p><strong>优选：</strong></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">let</span> <span class="n">width</span> <span class="o">=</span> <span class="mi">120</span><span class="o">.</span><span class="mi">0</span>                                           <span class="o">//</span><span class="no">Double</span>
+</span><span class='line'><span class="n">let</span> <span class="n">widthString</span> <span class="o">=</span> <span class="n">width</span><span class="o">.</span><span class="n">bridgeToObjectiveC</span><span class="p">()</span><span class="o">.</span><span class="n">stringValue</span>    <span class="sr">//</span><span class="nb">String</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>不建议使用：</strong></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">let</span> <span class="ss">width</span><span class="p">:</span> <span class="no">NSNumber</span> <span class="o">=</span> <span class="mi">120</span><span class="o">.</span><span class="mi">0</span>                                 <span class="o">//</span><span class="no">NSNumber</span>
+</span><span class='line'><span class="n">let</span> <span class="ss">widthString</span><span class="p">:</span> <span class="no">NSString</span> <span class="o">=</span> <span class="n">width</span><span class="o">.</span><span class="n">stringValue</span>               <span class="sr">//</span><span class="no">NSString</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在Sprite Kit的代码中，如果<code>CGFloat</code>可以避免过多的转换从而使得代码简洁，那么请使用它。</p>
+
+<h3>常量</h3>
+
+<p>常量通过<code>let</code>关键字定义，而变量使用<code>var</code>关键字定义。任何值如果<strong>是</strong>一个不变量，那么请使用<code>let</code>关键字恰如其分地定义它。最后你会发现自己喜欢使用<code>let</code>远多于<code>far</code>。</p>
+
+<p><strong>Tip：</strong>有一个方法可以帮你满足该项规则，将所有值都定义成常量，然后编译器提示的时候将其改为变量。</p>
+
+<h3>Optional</h3>
+
+<p>在nil值可能出现的情况下，将变量跟函数返回值的类型通过<code>?</code>定义成Optional。</p>
+
+<p>只有在确定实例变量会在初始化之后才被使用的情况下，通过<code>!</code>将其定义为隐式解包类型（Implicitly Unwrapped Types），比如说会在<code>viewDidLoad</code>中被创建的子视图。</p>
+
+<p>在访问一个Optional值时，如果该值只被访问一次，或者之后需要连续访问多个Optional值，请使用链式Optional语法：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">myOptional?</span><span class="o">.</span><span class="n">anotherOne?</span><span class="o">.</span><span class="n">optionalView?</span><span class="o">.</span><span class="n">setNeedsDisplay</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>对于需要将Optional值解开一次，然后进行多个操作的情况，使用Optional绑定更为方便：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">if</span> <span class="n">let</span> <span class="n">view</span> <span class="o">=</span> <span class="nb">self</span><span class="o">.</span><span class="n">optionalView</span> <span class="p">{</span>
+</span><span class='line'>  <span class="sr">//</span> <span class="k">do</span> <span class="n">many</span> <span class="n">things</span> <span class="n">with</span> <span class="n">view</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>类型推导</h3>
+
+<p>Swift的编译器可以推导出变量和常量的类型。可以显式地提供类型别名（冒号后面声明的类型），不过大多数情况下这都是不必要的。</p>
+
+<p>保持代码紧凑，然后让编译器推断变量跟常量的类型。</p>
+
+<p><strong>优选：</strong></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">let</span> <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;Click the button&quot;</span>
+</span><span class='line'><span class="n">var</span> <span class="n">currentBounds</span> <span class="o">=</span> <span class="n">computeViewBounds</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>不建议使用：</strong></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">let</span> <span class="ss">message</span><span class="p">:</span> <span class="nb">String</span> <span class="o">=</span> <span class="s2">&quot;Click the button&quot;</span>
+</span><span class='line'><span class="n">var</span> <span class="ss">currentBounds</span><span class="p">:</span> <span class="no">CGRect</span> <span class="o">=</span> <span class="n">computeViewBounds</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>注意</strong>：遵循这条准则意味着使用描述性强的名称比之前更为重要了。</p>
+
+<h3>语法糖</h3>
+
+<p>Prefer the shortcut versions of type declarations over the full generics syntax.</p>
+
+<p>使用简写的类型声明，而不是它的全泛型版本。</p>
+
+<p><strong>优选：</strong></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">var</span> <span class="ss">deviceModels</span><span class="p">:</span> <span class="o">[</span><span class="nb">String</span><span class="o">]</span>
+</span><span class='line'><span class="n">var</span> <span class="ss">employees</span><span class="p">:</span> <span class="o">[</span><span class="ss">Int</span><span class="p">:</span> <span class="nb">String</span><span class="o">]</span>
+</span><span class='line'><span class="n">var</span> <span class="ss">faxNumber</span><span class="p">:</span> <span class="no">Int</span><span class="p">?</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>不建议使用：</strong></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">var</span> <span class="ss">deviceModels</span><span class="p">:</span> <span class="nb">Array</span><span class="o">&lt;</span><span class="nb">String</span><span class="o">&gt;</span>
+</span><span class='line'><span class="n">var</span> <span class="ss">employees</span><span class="p">:</span> <span class="no">Dictionary</span><span class="o">&lt;</span><span class="no">Int</span><span class="p">,</span> <span class="nb">String</span><span class="o">&gt;</span>
+</span><span class='line'><span class="n">var</span> <span class="ss">faxNumber</span><span class="p">:</span> <span class="no">Optional</span><span class="o">&lt;</span><span class="no">Int</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>控制流</h2>
+
+<p>对于<code>for</code>循环，优选<code>for-in</code>风格而不是<code>for-condition-increment</code>风格：</p>
+
+<p><strong>优选：</strong></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">for</span> <span class="n">_</span> <span class="k">in</span> <span class="mi">0</span><span class="o">.</span><span class="n">.</span><span class="o">&lt;</span><span class="mi">3</span> <span class="p">{</span>
+</span><span class='line'>  <span class="n">println</span><span class="p">(</span><span class="s2">&quot;Hello three times&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">for</span> <span class="n">person</span> <span class="k">in</span> <span class="n">attendeeList</span> <span class="p">{</span>
+</span><span class='line'>  <span class="sr">//</span> <span class="k">do</span> <span class="n">something</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>不建议使用：</strong></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">for</span> <span class="n">var</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span> <span class="p">{</span>
+</span><span class='line'>  <span class="n">println</span><span class="p">(</span><span class="s2">&quot;Hello three times&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">for</span> <span class="n">var</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">attendeeList</span><span class="o">.</span><span class="n">count</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span> <span class="p">{</span>
+</span><span class='line'>  <span class="n">let</span> <span class="n">person</span> <span class="o">=</span> <span class="n">attendeeList</span><span class="o">[</span><span class="n">i</span><span class="o">]</span>
+</span><span class='line'>  <span class="sr">//</span> <span class="k">do</span> <span class="n">something</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>笑脸</h2>
+
+<p>笑脸对于raywenderlich.com来说是一个格外重要的风格特征。使用正确的笑脸可以表示出对某个主题的无穷尽的高兴以及兴奋程度。选用了<code>]</code>是因为它在ASCII艺术可以表示得最大的笑脸。而闭圆括号<code>)</code>因为给人一种“<strong>呵呵</strong>”的感觉而不建议使用。</p>
+
+<p><strong>优选：</strong></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="p">:</span><span class="o">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>不建议使用：</strong></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="p">:)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
+
+<h2>致谢</h2>
+
+<p>该风格指南是由下面这些格外有范儿的raywenderlich.com团队成员齐心协力一同打造：</p>
+
+<ul>
+<li><a href="https://github.com/moayes">Soheil Moayedi Azarpour</a></li>
+<li><a href="https://github.com/Scott90">Scott Berrevoets</a></li>
+<li><a href="https://github.com/ecerney">Eric Cerney</a></li>
+<li><a href="https://github.com/sammyd">Sam Davies</a></li>
+<li><a href="https://github.com/edekhayser">Evan Dekhayser</a></li>
+<li><a href="https://github.com/pdistler">Jean-Pierre Distler</a></li>
+<li><a href="https://github.com/ColinEberhardt">Colin Eberhardt</a></li>
+<li><a href="https://github.com/gregheo">Greg Heo</a></li>
+<li><a href="https://github.com/hollance">Matthijs Hollemans</a></li>
+<li><a href="https://github.com/eskerber">Erik Kerber</a></li>
+<li><a href="https://github.com/elephantronic">Christopher LaPollo</a></li>
+<li><a href="https://github.com/macandyp">Andy Pereira</a></li>
+<li><a href="https://github.com/rnystrom">Ryan Nystrom</a></li>
+<li><a href="https://github.com/funkyboy">Cesare Rocchi</a></li>
+<li><a href="https://github.com/designatednerd">Ellen Shapiro</a></li>
+<li><a href="https://github.com/icanzilb">Marin Todorov</a></li>
+<li><a href="https://github.com/cwagdev">Chris Wagner</a></li>
+<li><a href="https://github.com/rwenderlich">Ray Wenderlich</a></li>
+<li><a href="https://github.com/jackwu95">Jack Wu</a></li>
+</ul>
+
+
+<p>向<a href="https://github.com/ndubbs">Nicholas Waynik</a>以及<a href="https://github.com/raywenderlich/objective-c-style-guide">Objective-C风格指南</a>团队脱帽致礼！</p>
+
+<p>我们也从苹果公司的有关Swift的参考材料中获取了灵感：</p>
+
+<ul>
+<li><a href="https://developer.apple.com/library/prerelease/ios/documentation/swift/conceptual/swift_programming_language/index.html">The Swift Programming Language</a></li>
+<li><a href="https://developer.apple.com/library/prerelease/ios/documentation/Swift/Conceptual/BuildingCocoaApps/index.html">Using Swift with Cocoa and Objective-C</a></li>
+<li><a href="https://developer.apple.com/library/prerelease/ios/documentation/General/Reference/SwiftStandardLibraryReference/index.html">Swift Standard Library Reference</a></li>
+</ul>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Ron</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-09-08T15:28:49+08:00" pubdate data-updated="true">Sep 8<sup>th</sup>, 2014</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/09/02/cong-objective-czhuan-yi-dao-xu-yao-zhu-yi-de-di-fang/" title="Previous Post: 从Objective-C转移到Swift需要注意的地方">&laquo; 从Objective-C转移到Swift需要注意的地方</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2014/09/10/sui-ran-gang-shang-shi-de-iphone6yu-ipgua-pei-bu-gong-zuo-liao-ma-%3F/" title="Next Post: 关于大屏iPhone的适配">关于大屏iPhone的适配 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2016/03/06/%5B%3F%5D-ge-geng-ju-bao-rong-xing-de-jing-ji-fa-zhan-lan-tu/">一个更具包容性的经济发展蓝图</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/10/19/ru-he-cong-640-star-1136de-psdwen-jian-pi-liang-qie-chu-3xhe-2xde-png/">如何从640*1136的psd文件批量切出3x和2x的png</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/09/10/sui-ran-gang-shang-shi-de-iphone6yu-ipgua-pei-bu-gong-zuo-liao-ma-%3F/">关于大屏iPhone的适配</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/09/08/raywenderlich-dot-com-swiftfeng-ge-zhi-nan/">raywenderlich.com Swift风格指南</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/09/02/cong-objective-czhuan-yi-dao-xu-yao-zhu-yi-de-di-fang/">从Objective-C转移到Swift需要注意的地方</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2016 - Ron -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

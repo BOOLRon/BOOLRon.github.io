@@ -1,0 +1,293 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>装机记录 - Ron's Blog</title>
+  <meta name="author" content="Ron">
+
+  
+  <meta name="description" content="GUI安装 首先进入AppStore升级系统，然后通过AppStore的”Purchases”页面，重新安装以前购买过的应用，再通过网页下载输入法、Resizer、PS等 命令行安装 安装homebrew ruby -e "$(curl -fsSL https://raw.github.com/ &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://BOOLRon.github.io/blog/2014/08/09/zhuang-ji-ji-lu">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Ron's Blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Ron's Blog</a></h1>
+  
+    <h2>攻城狮成长记</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:BOOLRon.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">装机记录</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-09T09:36:11+08:00" pubdate data-updated="true">Aug 9<sup>th</sup>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><hr />
+
+<h4>GUI安装</h4>
+
+<p>首先进入AppStore升级系统，然后通过AppStore的”Purchases”页面，重新安装以前购买过的应用，再通过网页下载输入法、Resizer、PS等</p>
+
+<hr />
+
+<h4>命令行安装</h4>
+
+<p><strong>安装homebrew</strong></p>
+
+<pre><code>ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
+</code></pre>
+
+<p>安装完成后别忘了执行:</p>
+
+<pre><code>brew doctor
+</code></pre>
+
+<p>然后可以用brew安装git、wget等</p>
+
+<pre><code>brew install git
+brew install wget
+</code></pre>
+
+<p><strong>brew cask</strong></p>
+
+<p>还可以使用brew cask来安装应用，首先安装cask:</p>
+
+<pre><code>brew tap phinze/cask
+brew install brew-cask
+</code></pre>
+
+<p>接下来可以安装你需要的软件，例如：</p>
+
+<pre><code>brew cask install google-chrome
+brew cask install sublime-text
+brew cask install mou
+brew cask install sourcetree    
+</code></pre>
+
+<hr />
+
+<p><strong>安装oh-my-zsh</strong></p>
+
+<pre><code>curl -L http://install.ohmyz.sh | sh
+</code></pre>
+
+<p>安装完成之后，执行：</p>
+
+<pre><code>subl ~/.zshrc
+</code></pre>
+
+<p>然后把以下这行注释启用：export LANG=en_US.UTF-8 ，否则命令行中的中文可能会乱码。
+你也可以给一些常用命令加上别名，例如：</p>
+
+<pre><code>alias gs='git status'
+alias guod='git pull origin develop'
+alias gpod='git push origin develop'
+</code></pre>
+
+<hr />
+
+<p><strong>安装CocoaPods</strong></p>
+
+<pre><code>sudo gem install cocoapods
+</code></pre>
+
+<p>然后执行</p>
+
+<pre><code> pod setup
+</code></pre>
+
+<p>这是建立pod索引的过程，可能等待比较长时间，建议翻墙</p>
+
+<hr />
+
+<p><strong>安装Alcatraz(Xcode插件管理包)</strong></p>
+
+<pre><code>curl -fsSL https://raw.github.com/supermarin/Alcatraz/master/Scripts/install.sh | sh
+</code></pre>
+
+<hr />
+
+<p><strong>安装Rvm</strong></p>
+
+<pre><code>curl -L https://get.rvm.io | bash -s stable --ruby
+</code></pre>
+
+<p>由于我的博客使用Octopress搭建，所以安装bundler:</p>
+
+<pre><code>gem install bundler
+bundle install
+</code></pre>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Ron</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-09T09:36:11+08:00" pubdate data-updated="true">Aug 9<sup>th</sup>, 2014</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/07/30/ting-xi-huan-xcodede-xin-icon/" title="Previous Post: 挺喜欢Xcode的新icon">&laquo; 挺喜欢Xcode的新icon</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2014/08/31/swiftde-zhi-lei-xing-he-yin-yong-lei-xing-de-chai-bie/" title="Next Post: Swift的值类型和引用类型的差别">Swift的值类型和引用类型的差别 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2016/03/06/%5B%3F%5D-ge-geng-ju-bao-rong-xing-de-jing-ji-fa-zhan-lan-tu/">一个更具包容性的经济发展蓝图</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/10/19/ru-he-cong-640-star-1136de-psdwen-jian-pi-liang-qie-chu-3xhe-2xde-png/">如何从640*1136的psd文件批量切出3x和2x的png</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/09/10/sui-ran-gang-shang-shi-de-iphone6yu-ipgua-pei-bu-gong-zuo-liao-ma-%3F/">关于大屏iPhone的适配</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/09/08/raywenderlich-dot-com-swiftfeng-ge-zhi-nan/">raywenderlich.com Swift风格指南</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/09/02/cong-objective-czhuan-yi-dao-xu-yao-zhu-yi-de-di-fang/">从Objective-C转移到Swift需要注意的地方</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2016 - Ron -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
