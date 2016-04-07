@@ -3,7 +3,7 @@ layout: post
 title: "just for test"
 date: 2016-04-06 18:00:00 +0800
 comments: true
-categories: 
+categories: 其它
 ---
 
 #### ok, can you c?

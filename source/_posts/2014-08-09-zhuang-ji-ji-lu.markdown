@@ -3,7 +3,7 @@ layout: post
 title: "装机记录"
 date: 2014-08-09 09:36:11 +0800
 comments: true
-categories: 
+categories: Mac
 ---
 ***
 #### GUI安装

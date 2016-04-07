@@ -3,7 +3,7 @@ layout: post
 title: "raywenderlich.com Swift风格指南"
 date: 2014-09-08 15:28:49 +0800
 comments: true
-categories: 
+categories: iOS
 ---
 
 因为该指南关注于网页上以及打印版的可读性，所以它可能与你阅读过的指南有所不同。为了保证那些在我们书中、教程里以及初学者工程里的代码美观并且一致，我们写下了这份风格指南，尽管书由许多不同作者共同创作而成。

@@ -3,7 +3,7 @@ layout: post
 title: "Swift的值类型和引用类型的差别"
 date: 2014-08-31 19:49:25 +0800
 comments: true
-categories: 
+categories: Swift
 ---
 Swift的值分两种类型：值类型和引用类型。前者的实例保存着数据相同且各自独立的副本，像struct、enum和tuple这些；而后者的实例保存同一份数据，如class。这文章我们来挖掘这两种类型各自的优点以及思考开发中要如何选用
 

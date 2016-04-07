@@ -3,7 +3,7 @@ layout: post
 title: "从Objective-C转移到Swift需要注意的地方"
 date: 2014-09-02 20:41:46 +0800
 comments: true
-categories: 
+categories: Swift
 ---
 我想通过这文章分享一下我从Objective-C转移到Swift过程中的一些想法。我会给你一些提示并讨论相关的陷阱，尽可能去比较两种语言的方法有何不同。废话不多说，马上开始！
 
