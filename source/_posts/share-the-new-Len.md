@@ -36,13 +36,13 @@ categories: 摄影
 * Focal Length                    : 35.0 mm (35 mm equivalent: 52.0 mm)
 
 更多照片：
-![](http://77g05y.com1.z0.glb.clouddn.com/share-the-new-Len/DSC_0635.JPG)
+![](http://77g05y.com1.z0.glb.clouddn.com/DSC_0635%20copy.jpg)
 ***
-![](http://77g05y.com1.z0.glb.clouddn.com/share-the-new-Len/DSC_0637.JPG)
+![](http://77g05y.com1.z0.glb.clouddn.com/DSC_0637%20copy.jpg)
 ***
 ![](http://77g05y.com1.z0.glb.clouddn.com/share-the-new-Len/DSC_0651.JPG)
 ***
-![](http://77g05y.com1.z0.glb.clouddn.com/share-the-new-Len/DSC_0657.JPG)
+![](http://77g05y.com1.z0.glb.clouddn.com/DSC_0657%20copy.jpg)
 
 这是我摄影入门一个月的水平，下一次我会po更加美的照片，等我!
 
