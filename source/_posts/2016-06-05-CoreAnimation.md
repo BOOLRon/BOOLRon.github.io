@@ -8,7 +8,7 @@ categories: ios
 
 # CoreAnimation 总结
 
-转载自: 
+转载自: [Cooper's Blog](http://ckp1992.github.io/2016/06/01/CoreAnimation总结/)
 
 ---
 
