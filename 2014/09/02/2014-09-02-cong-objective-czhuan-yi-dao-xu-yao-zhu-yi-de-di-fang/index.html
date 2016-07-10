@@ -1,0 +1,446 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>从Objective-C转移到Swift需要注意的地方 | Ron&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Ron">
+    
+
+    
+    <meta name="description" content="我想通过这文章分享一下我从Objective-C转移到Swift过程中的一些想法。我会给你一些提示并讨论相关的陷阱，尽可能去比较两种语言的方法有何不同。废话不多说，马上开始！
+xxx.swift VS xxx.h&amp;amp;xxx.m第一个要注意的大变化是，Swift不采用interface.h/implementation.m的结构。其实我是非常支持把需要共享的信息放头文件的，这样很安全。而Swi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从Objective-C转移到Swift需要注意的地方">
+<meta property="og:url" content="http://blog.boolron.info/2014/09/02/2014-09-02-cong-objective-czhuan-yi-dao-xu-yao-zhu-yi-de-di-fang/index.html">
+<meta property="og:site_name" content="Ron's Blog">
+<meta property="og:description" content="我想通过这文章分享一下我从Objective-C转移到Swift过程中的一些想法。我会给你一些提示并讨论相关的陷阱，尽可能去比较两种语言的方法有何不同。废话不多说，马上开始！
+xxx.swift VS xxx.h&amp;amp;xxx.m第一个要注意的大变化是，Swift不采用interface.h/implementation.m的结构。其实我是非常支持把需要共享的信息放头文件的，这样很安全。而Swi">
+<meta property="og:updated_time" content="2016-04-07T02:54:41.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="从Objective-C转移到Swift需要注意的地方">
+<meta name="twitter:description" content="我想通过这文章分享一下我从Objective-C转移到Swift过程中的一些想法。我会给你一些提示并讨论相关的陷阱，尽可能去比较两种语言的方法有何不同。废话不多说，马上开始！
+xxx.swift VS xxx.h&amp;amp;xxx.m第一个要注意的大变化是，Swift不采用interface.h/implementation.m的结构。其实我是非常支持把需要共享的信息放头文件的，这样很安全。而Swi">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Ron&#39;s Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.png">
+    
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Ron&#39;s Blog">Ron&#39;s Blog</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:blog.boolron.info">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/09/02/2014-09-02-cong-objective-czhuan-yi-dao-xu-yao-zhu-yi-de-di-fang/" title="从Objective-C转移到Swift需要注意的地方" itemprop="url">从Objective-C转移到Swift需要注意的地方</a>
+  </h1>
+  
+  <p class="article-time">
+    <time datetime="2014-09-02T12:41:46.000Z" itemprop="datePublished"> Published 2014-09-02</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#xxx-swift-VS-xxx-h-amp-xxx-m"><span class="toc-number">1.</span> <span class="toc-text">xxx.swift VS xxx.h&xxx.m</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#常量与变量"><span class="toc-number">2.</span> <span class="toc-text">常量与变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#只写需要的代码"><span class="toc-number">3.</span> <span class="toc-text">只写需要的代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Optionals"><span class="toc-number">4.</span> <span class="toc-text">Optionals</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Optionals-Unwrapping"><span class="toc-number">5.</span> <span class="toc-text">Optionals Unwrapping</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Delegate模式"><span class="toc-number">6.</span> <span class="toc-text">Delegate模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Target-Action模式"><span class="toc-number">7.</span> <span class="toc-text">Target-Action模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#单例模式"><span class="toc-number">8.</span> <span class="toc-text">单例模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Blocks-VS-Closures"><span class="toc-number">9.</span> <span class="toc-text">Blocks VS Closures</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#最后"><span class="toc-number">10.</span> <span class="toc-text">最后</span></a></li></ol>
+		
+		</div>
+		
+		<p>我想通过这文章分享一下我从Objective-C转移到Swift过程中的一些想法。我会给你一些提示并讨论相关的陷阱，尽可能去比较两种语言的方法有何不同。废话不多说，马上开始！</p>
+<h3 id="xxx-swift-VS-xxx-h-amp-xxx-m"><a href="#xxx-swift-VS-xxx-h-amp-xxx-m" class="headerlink" title="xxx.swift VS xxx.h&amp;xxx.m"></a>xxx.swift VS xxx.h&amp;xxx.m</h3><p>第一个要注意的大变化是，Swift不采用interface.h/implementation.m的结构。其实我是非常支持把需要共享的信息放头文件的，这样很安全。而Swift，不再分开头文件与实现文件了，只需要实现我们的class。</p>
+<p>自从Xcode6 beta4开始，Swift加入了三个访问权限控制修饰词：</p>
+<ul>
+<li>private 只能被相同源文件下被访问</li>
+<li>internal 只能被当前target下的文件访问</li>
+<li>public 可以被属于当前target的module下的所有文件访问</li>
+</ul>
+<p>三个中internal是默认的，另外对属性加修饰词可以设置只对set方法成效，例如：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">	<span class="comment">// 这样对于其他文件是只读不可写了</span></span><br><span class="line">	<span class="keyword">private</span>(<span class="keyword">set</span>) <span class="keyword">var</span> <span class="type">UUID</span>: <span class="type">NSUUID</span></span><br><span class="line">```	</span><br><span class="line">	</span><br><span class="line">而当你需要重载声明了<span class="keyword">public</span>修饰词的方法时，你也必须要加<span class="keyword">public</span>的:</span><br><span class="line">```swift</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">isEqual</span><span class="params">(object: AnyObject?)</span></span> -&gt; <span class="type">Bool</span>&#123;</span><br><span class="line">		<span class="keyword">if</span> <span class="keyword">let</span> item = object <span class="keyword">as</span>? <span class="type">ListItem</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">self</span>.<span class="type">UUID</span> == item.<span class="type">UUID</span></span><br><span class="line">		&#125;	</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="常量与变量"><a href="#常量与变量" class="headerlink" title="常量与变量"></a>常量与变量</h3><p>在写Objective-C时，我知道有些数据不应该被改变也是比较少用<strong>const</strong>的（请不要耻笑我）。而在Swift，苹果建议开发者更多去思考，能用常量(<strong>let</strong>)，就少用变量(<strong>var</strong>)。这样你只需要专注于如何使你定义的变量发挥作用。</p>
+<h3 id="只写需要的代码"><a href="#只写需要的代码" class="headerlink" title="只写需要的代码"></a>只写需要的代码</h3><p>举个栗子：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">	<span class="keyword">let</span> wsURL:<span class="type">NSURL</span> = <span class="type">NSURL</span>(string:<span class="string">"http://wsurl.com"</span>);</span><br><span class="line">	&lt;!----&gt;</span><br><span class="line">	<span class="keyword">let</span> wsURL = <span class="type">NSURL</span>(string:<span class="string">"http://wsurl.com"</span>) </span><br><span class="line">```	</span><br><span class="line">	</span><br><span class="line">经过两周训练写<span class="type">Swift</span>，我强迫自己去掉每行代码的分号。最后我感觉整个人都舒服了，然后我经常写<span class="type">Objective</span>-<span class="type">C</span>漏掉了分号，呵呵。</span><br><span class="line"></span><br><span class="line">**<span class="type">Type</span> inference**是指通过赋值时的声明来推断出实例的类型，这种方便的写法使得习惯了冗长派语言（如<span class="type">Objective</span>-<span class="type">C</span>）的我有点措手不及。</span><br><span class="line"></span><br><span class="line">另一种情况是在<span class="keyword">if</span>里买不一定需要括号：</span><br><span class="line">```swift</span><br><span class="line">	<span class="keyword">if</span> (a &gt; b) &#123;&#125;</span><br><span class="line">	&lt;!----&gt;</span><br><span class="line">	<span class="keyword">if</span> a &gt; b &#123;&#125;</span><br><span class="line">```	</span><br><span class="line">	</span><br><span class="line">以上是一样的，另外如果你要在<span class="keyword">if</span>里面赋值是不能加括号的：</span><br><span class="line">```swift</span><br><span class="line">	<span class="keyword">if</span> (<span class="keyword">let</span> x = data)&#123;&#125; <span class="comment">//Error!</span></span><br><span class="line">	<span class="keyword">if</span> <span class="keyword">let</span> x = data&#123;&#125;  <span class="comment">//OK!</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="Optionals"><a href="#Optionals" class="headerlink" title="Optionals"></a>Optionals</h3><p>很多时候函数返回的会是<strong>值</strong>或者<strong>空</strong>，而你会用什么方案来返回这个<strong>空</strong>呢？我会使用<strong>NSNotFound</strong>,<strong>-1</strong>,<strong>0</strong>或<strong>nil</strong>。得益于Optionals，现在<strong>空</strong>有了官方的完整定义，我们只需在数据类型后加问号就行了。</p>
+<p>例如：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Car</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">accelerate</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"accelerate"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;	</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</span><br><span class="line">    <span class="keyword">let</span> name:<span class="type">String</span></span><br><span class="line">    <span class="keyword">let</span> car:<span class="type">Car</span>? <span class="comment">// Optional value</span></span><br><span class="line">    <span class="keyword">init</span>(name:<span class="type">String</span>)&#123;</span><br><span class="line">        <span class="keyword">self</span>.name = name</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// ACCESSING THE OPTIONAL VALUE ***********</span></span><br><span class="line"><span class="keyword">var</span> <span class="type">Mark</span> = <span class="type">Person</span>(name:<span class="string">"mark"</span>)</span><br><span class="line"><span class="comment">// use optional binding</span></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">let</span> car = <span class="type">Mark</span>.car &#123;</span><br><span class="line">    car.accelerate()</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// unwrap the value</span></span><br><span class="line"><span class="type">Mark</span>.car?.accelerate()</span><br></pre></td></tr></table></figure>
+<p>在这个例子中，Person有Car被定义成一个Optional。这意味着属性car可以为空，然后我们可以通过Optional binding(if let car =)或者unwrap(car?)来访问到里面的值。<br>如果我们定义某属性不为Optional，那么我们必须要设一个值给它，否则编译器就会不高兴了。我们需要决定好class的属性怎样与其它class相互调用，Optional完全改变了我们构思class的方式。</p>
+<h3 id="Optionals-Unwrapping"><a href="#Optionals-Unwrapping" class="headerlink" title="Optionals Unwrapping"></a>Optionals Unwrapping</h3><p>当你发现Optional很难用时，那是因为你对它还不够了解…<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Mark</span>.car?</span><br></pre></td></tr></table></figure></p>
+<p>建议你把Optional想象成一个封起来的盒子，当你不肯定里面有没有值时，可以在Optional后面加<strong>?</strong>就代表解封，你即可看到里面的值或者是一个空盒子。而你敢肯定里面绝对有值时，可以在后面加<strong>!</strong>就可以直接获取到值了，但这有个风险，程序运行发现跟你断言的不一样就会马上闪退。</p>
+<h3 id="Delegate模式"><a href="#Delegate模式" class="headerlink" title="Delegate模式"></a>Delegate模式</h3><p>写了多年的Objective-C，我们都已习惯了这种模式，下面用Swift实现一个简单的delegate:</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">	<span class="meta">@objc</span> <span class="class"><span class="keyword">protocol</span> <span class="title">DataReaderDelegate</span></span>&#123;</span><br><span class="line">	    @<span class="keyword">optional</span> <span class="function"><span class="keyword">func</span> <span class="title">DataWillRead</span><span class="params">()</span></span></span><br><span class="line">	    <span class="function"><span class="keyword">func</span> <span class="title">DataDidRead</span><span class="params">()</span></span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="class"><span class="keyword">class</span> <span class="title">DataReader</span>: <span class="title">NSObject</span> </span>&#123;</span><br><span class="line">	    <span class="keyword">var</span> delegate:<span class="type">DataReaderDelegate</span>?</span><br><span class="line">	    <span class="keyword">var</span> data:<span class="type">NSData</span>?</span><br><span class="line">	    <span class="function"><span class="keyword">func</span> <span class="title">buildData</span><span class="params">()</span></span>&#123;</span><br><span class="line">	        delegate?.<span class="type">DataWillRead</span>?() <span class="comment">// Optional method check</span></span><br><span class="line">	        data = _createData()</span><br><span class="line">	        delegate?.<span class="type">DataDidRead</span>()       <span class="comment">// Required method check</span></span><br><span class="line">	    &#125;</span><br><span class="line">	&#125;</span><br><span class="line">```	</span><br><span class="line">以往我们需要用**respondToSelector**来判断对象是否响应这个方法(真心觉得太烦了)，现在有了<span class="type">Optional</span>就可以简化成：</span><br><span class="line">```swift</span><br><span class="line">	delegate?.<span class="type">DataWillRead</span>?()</span><br></pre></td></tr></table></figure>
+<p>然后就是在另外的class上实现delegate了：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ViewController</span>: <span class="title">UIViewController</span>, <span class="title">DataReaderDelegate</span> </span>&#123;                     </span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.viewDidLoad()</span><br><span class="line">        <span class="keyword">let</span> reader = <span class="type">DataReader</span>()</span><br><span class="line">        reader.delegate = <span class="keyword">self</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">DataWillRead</span><span class="params">()</span></span> &#123;...&#125;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">DataDidRead</span><span class="params">()</span></span> &#123;...&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="Target-Action模式"><a href="#Target-Action模式" class="headerlink" title="Target-Action模式"></a>Target-Action模式</h3><p>另一种常用模式是target-action模式，你会发现写法跟Objective-C差别不大：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ViewController</span>: <span class="title">UIViewController</span> </span>&#123;  </span><br><span class="line">    <span class="meta">@IBOutlet</span> <span class="keyword">var</span> button:<span class="type">UIButton</span></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.viewDidLoad()</span><br><span class="line">   	    button.addTarget(<span class="keyword">self</span>, action: <span class="string">"buttonPressed:"</span>, forControlEvents: <span class="type">UIControlEvents</span>.<span class="type">TouchUpInside</span>)</span><br><span class="line">    &#125;</span><br><span class="line">   	<span class="function"><span class="keyword">func</span> <span class="title">buttonPressed</span><span class="params">(sender:UIButton)</span></span>&#123;...&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>最大不同在于selector的定义。我们可以直接写用String写成:<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Selector</span>(<span class="string">"buttonPressed:"</span>)</span><br></pre></td></tr></table></figure></p>
+<h3 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h3><p>无论你喜不喜欢，单例模式仍然是最常用开发设计模式之一。除了结合GDC和dispatch_once来实现之外，我们还可以使用线程安全的<strong>let</strong>实现。</p>
+<pre><code>class DataReader: NSObject {
+    class var sharedReader:DataReader {
+        struct Static{
+            static let _instance = DataReader()
+        }
+        return Static._instance
+    }
+...
+}
+</code></pre><p>分析一下</p>
+<p>1.我们ShareReader可看成包装起来的静态属性；<br>2.而真正的静态属性我用struct来封起来不允许别的class修改；<br>3._instance是一个常量，它不能被修改成别的值。</p>
+<p>使用：</p>
+<pre><code>DataReader.sharedReader
+</code></pre><p>自从Xcode6 beta4加入了访问修饰词，我们现在可以简单的写成：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">	<span class="keyword">private</span> <span class="keyword">let</span> _instance = <span class="type">DataReader</span>()</span><br><span class="line">	<span class="class"><span class="keyword">class</span> <span class="title">DataReader</span> </span>&#123;</span><br><span class="line">	    <span class="class"><span class="keyword">class</span> <span class="title">var</span> <span class="title">sharedReader</span>:<span class="title">DataReader</span> </span>&#123;</span><br><span class="line">	        <span class="keyword">return</span> _instance</span><br><span class="line">	    &#125;</span><br><span class="line">	&#125;</span><br><span class="line">```	</span><br><span class="line">### 结构体与枚举</span><br><span class="line"><span class="type">Swift</span>的结构体与枚举有很多强大特性你是在别的语言找不到的。</span><br><span class="line"></span><br><span class="line">它们支持写方法：</span><br><span class="line">```swift</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">User</span></span>&#123;</span><br><span class="line">	    <span class="comment">// Struct properties</span></span><br><span class="line">	    <span class="keyword">let</span> name:<span class="type">String</span></span><br><span class="line">	    <span class="keyword">let</span> <span class="type">ID</span>:<span class="type">Int</span></span><br><span class="line">	    <span class="comment">// Method!!!</span></span><br><span class="line">	    <span class="function"><span class="keyword">func</span> <span class="title">sayHello</span><span class="params">()</span></span>&#123;</span><br><span class="line">	        <span class="built_in">println</span>(<span class="string">"I'm "</span> + <span class="keyword">self</span>.name + <span class="string">" my ID is: <span class="subst">\(<span class="keyword">self</span>.ID)</span>"</span>)</span><br><span class="line">	    &#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">let</span> pamela = <span class="type">User</span>(name: <span class="string">"Pamela"</span>, <span class="type">ID</span>: <span class="number">123456</span>)</span><br><span class="line">	pamela.sayHello()</span><br><span class="line">```	</span><br><span class="line">可以见到<span class="type">Swift</span>对结构体有默认的initializer。而枚举的语法有很大不同是用了**<span class="keyword">case</span>**:</span><br><span class="line">```swift</span><br><span class="line">	<span class="class"><span class="keyword">enum</span> <span class="title">Fruit</span> </span>&#123; </span><br><span class="line">	  <span class="keyword">case</span> orange</span><br><span class="line">	  <span class="keyword">case</span> apple</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure></p>
+<p>不再限制与整数：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">	<span class="class"><span class="keyword">enum</span> <span class="title">Fruit</span>:<span class="title">String</span> </span>&#123; </span><br><span class="line">	  <span class="keyword">case</span> .orange = <span class="string">"Orange"</span></span><br><span class="line">	  <span class="keyword">case</span> .apple = <span class="string">"Apple"</span></span><br><span class="line">	&#125;</span><br><span class="line">```	</span><br><span class="line">甚至可以给它定义更多行为：</span><br><span class="line">```swift</span><br><span class="line">	<span class="class"><span class="keyword">enum</span> <span class="title">Fruit</span></span>&#123;</span><br><span class="line">	    <span class="comment">// Available Fruits</span></span><br><span class="line">	    <span class="keyword">case</span> orange</span><br><span class="line">	    <span class="keyword">case</span> apple</span><br><span class="line">	    <span class="comment">// Nested type</span></span><br><span class="line">	    <span class="class"><span class="keyword">struct</span> <span class="title">Vitamin</span></span>&#123;</span><br><span class="line">	        <span class="keyword">var</span> name:<span class="type">String</span></span><br><span class="line">	    &#125;</span><br><span class="line">	    <span class="comment">// Compound property</span></span><br><span class="line">	    <span class="keyword">var</span> mainVitamin:<span class="type">Vitamin</span> &#123;</span><br><span class="line">		    <span class="keyword">switch</span> <span class="keyword">self</span>&#123;</span><br><span class="line">			    <span class="keyword">case</span> .orange:</span><br><span class="line">		        <span class="keyword">return</span> <span class="type">Vitamin</span>(name: <span class="string">"C"</span>)</span><br><span class="line">		    <span class="keyword">case</span> .apple:</span><br><span class="line">		        <span class="keyword">return</span> <span class="type">Vitamin</span>(name: <span class="string">"B"</span>)</span><br><span class="line">    	&#125;</span><br><span class="line">	    &#125;</span><br><span class="line">	&#125; </span><br><span class="line">	<span class="keyword">let</span> <span class="type">Apple</span> = <span class="type">Fruit</span>.apple</span><br><span class="line">	<span class="keyword">var</span> <span class="type">Vitamin</span> = <span class="type">Apple</span>.mainVitamin</span><br></pre></td></tr></table></figure></p>
+<p>这段代码我们加了一个内嵌类型(Vitamin)和一个compound property(mainVitamin)，这样不同的枚举值出来的mainVitamin就不一样了，这功能真赞！</p>
+<h3 id="Blocks-VS-Closures"><a href="#Blocks-VS-Closures" class="headerlink" title="Blocks VS Closures"></a>Blocks VS Closures</h3><p>我非常喜欢blocks，一些简单的delegate我都爱用blocks来替代，它灵活、快速、安全。而在Swift里是用Closures来代替Blocks的。它再续了Blocks的优点，简化了语法，令我爱不惜手。<br>以下是官方用Closures实现reversed的例子：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">	reversed = <span class="built_in">sort</span>(names, &#123; (s1: <span class="type">String</span>, s2: <span class="type">String</span>) -&gt; <span class="type">Bool</span> <span class="keyword">in</span></span><br><span class="line">	    <span class="keyword">return</span> s1 &gt; s2</span><br><span class="line">	&#125;)</span><br><span class="line">```	</span><br><span class="line">简化成：</span><br><span class="line">```swift</span><br><span class="line">	reversed = <span class="built_in">sort</span>(names, &gt;) </span><br><span class="line">```	</span><br><span class="line">这里我就不详解<span class="type">Closure</span>的语法了，我来说说<span class="type">Closure</span>的**capture values**。在<span class="type">Objective</span>-<span class="type">C</span>我们需要给变量加**__block**才能在block里面修改该外部变量。而用<span class="type">Closure</span>，这不需要，我们能在<span class="type">Closures</span>里访问和修改外部作用域的变量。另外，如果<span class="type">Closure</span>里引用的实例包含或使用了<span class="type">Closure</span>本身，这就会引起**循环引用**:</span><br><span class="line">```swift</span><br><span class="line">	<span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</span><br><span class="line">	    <span class="keyword">var</span> age:<span class="type">Int</span> = <span class="number">0</span></span><br><span class="line">	    <span class="meta">@lazy</span> <span class="keyword">var</span> agePotion: (<span class="type">Int</span>) -&gt; <span class="type">Void</span> = &#123;</span><br><span class="line">        (agex:<span class="type">Int</span>)-&gt;<span class="type">Void</span> <span class="keyword">in</span></span><br><span class="line">	            <span class="keyword">self</span>.age += agex</span><br><span class="line">	    &#125;</span><br><span class="line">	    <span class="function"><span class="keyword">func</span> <span class="title">modifyAge</span><span class="params">(agex:Int, modifier:<span class="params">(Int)</span></span></span>-&gt;<span class="type">Void</span>)&#123;</span><br><span class="line">	        modifier(agex)</span><br><span class="line">	    &#125;   </span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">var</span> <span class="type">Mark</span>:<span class="type">Person</span>? = <span class="type">Person</span>()</span><br><span class="line">	<span class="type">Mark</span>!.modifyAge(<span class="number">50</span>, <span class="type">Mark</span>!.agePotion)</span><br><span class="line">	<span class="type">Mark</span> = <span class="literal">nil</span> <span class="comment">// Memory Leak</span></span><br><span class="line">```	</span><br><span class="line">看到agePotion里用了<span class="keyword">self</span>，**循环引用**就发生了，要避免这问题，我们可以用**<span class="type">Capture</span> <span class="type">List</span>**，这会时分配进<span class="type">Closure</span>的实例是<span class="keyword">weak</span>或者<span class="keyword">unowned</span>的，写法也很简单，只需在<span class="type">Closure</span>的定义前加上**[unownded <span class="keyword">self</span>]**，就可以得到一个<span class="keyword">unowned</span>或者<span class="keyword">weak</span>的<span class="keyword">self</span>了。</span><br><span class="line">```swift</span><br><span class="line">	<span class="meta">@lazy</span> <span class="keyword">var</span> agePotion: (<span class="type">Int</span>) -&gt; <span class="type">Void</span> = &#123;</span><br><span class="line">	     [<span class="keyword">unowned</span> <span class="keyword">self</span>](agex:<span class="type">Int</span>)-&gt;<span class="type">Void</span> <span class="keyword">in</span></span><br><span class="line">	         <span class="keyword">self</span>.age += agex</span><br><span class="line">	&#125;</span><br><span class="line">```	</span><br><span class="line">### <span class="type">Unowned</span> &amp; <span class="type">Weak</span> <span class="type">Reference</span></span><br><span class="line">我们知道**<span class="keyword">weak</span> <span class="type">Reference</span>**在<span class="type">Objective</span>-<span class="type">C</span>的使用，在<span class="type">Swift</span>上也是一样的。那么**<span class="keyword">unowned</span> reference**又是什么呢？我就举个例子来解析吧。</span><br><span class="line"></span><br><span class="line">我来描述一下一个人与他的银行账号的关系：</span><br><span class="line"></span><br><span class="line"><span class="number">1</span>.一个人可以有一个银行账号(<span class="keyword">optional</span>)</span><br><span class="line"></span><br><span class="line"><span class="number">2</span>.一个银行账号必须有拥有者(<span class="keyword">required</span>)</span><br><span class="line">```swift</span><br><span class="line">	<span class="comment">//We can describe this relation with code: </span></span><br><span class="line">	<span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</span><br><span class="line">	    <span class="keyword">let</span> name:<span class="type">String</span></span><br><span class="line">	    <span class="keyword">let</span> account:<span class="type">BankAccount</span>!</span><br><span class="line">	    <span class="keyword">init</span>(name:<span class="type">String</span>)&#123;</span><br><span class="line">	        <span class="keyword">self</span>.name = name</span><br><span class="line">	        <span class="keyword">self</span>.account = <span class="type">BankAccount</span>(owner: <span class="keyword">self</span>)</span><br><span class="line">	    &#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="class"><span class="keyword">class</span> <span class="title">BankAccount</span></span>&#123;</span><br><span class="line">	    <span class="keyword">let</span> owner:<span class="type">Person</span></span><br><span class="line">	    <span class="keyword">init</span>(owner:<span class="type">Person</span>)&#123;</span><br><span class="line">	        <span class="keyword">self</span>.owner = owner</span><br><span class="line">	    &#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这就生成了一个引用循环。一种解决方案是对BankAccount.owner属性添加weak reference。你也可以使用unowned reference，但这个属性就必须要非空了。总结就是<strong>unowned</strong>就只是比<strong>weak</strong>多了一个非空限制而已，其他一样的。</p>
+<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p>在写Swift的过程中，越来越发现一些有趣的特性，这令我更想多写Swift，期待正式版Xcode 6。</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Swift/">Swift</a>
+</div>
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://blog.boolron.info/2014/09/02/2014-09-02-cong-objective-czhuan-yi-dao-xu-yao-zhu-yi-de-di-fang/" data-title="从Objective-C转移到Swift需要注意的地方 | Ron&#39;s Blog" data-tsina="undefined" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2014/09/08/2014-09-08-raywenderlich-dot-com-swiftfeng-ge-zhi-nan/" title="raywenderlich.com Swift风格指南">
+  <strong>上一篇：</strong><br/>
+  <span>
+  raywenderlich.com Swift风格指南</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2014/08/31/2014-08-31-swiftde-zhi-lei-xing-he-yin-yong-lei-xing-de-chai-bie/"  title="Swift的值类型和引用类型的差别">
+ <strong>下一篇：</strong><br/> 
+ <span>Swift的值类型和引用类型的差别
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2014/09/02/2014-09-02-cong-objective-czhuan-yi-dao-xu-yao-zhu-yi-de-di-fang/" data-title="从Objective-C转移到Swift需要注意的地方" data-url="http://blog.boolron.info/2014/09/02/2014-09-02-cong-objective-czhuan-yi-dao-xu-yao-zhu-yi-de-di-fang/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">Categories</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/Mac/" title="Mac">Mac</a></li>
+		  
+		
+		  
+			<li><a href="/categories/Swift/" title="Swift">Swift</a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS/" title="iOS">iOS</a></li>
+		  
+		
+		  
+			<li><a href="/categories/ios/" title="ios">ios</a></li>
+		  
+		
+		  
+			<li><a href="/categories/摄影/" title="摄影">摄影</a></li>
+		  
+		
+		  
+			<li><a href="/categories/翻译/" title="翻译">翻译</a></li>
+		  
+		
+		</ul>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+	<p class="copyright" style="margin-top: 10px;">
+	Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016
+	
+	<a href="/about" target="_blank" title="Ron">Ron</a>
+	
+
+	</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"Ron"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+
+
+<!-- Analytics Begin -->
+
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-28029597-1', 'null');  
+ga('send', 'pageview');
+</script>
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
